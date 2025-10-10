@@ -1,0 +1,26 @@
+﻿@page "/"  
+@rendermode InteractiveServer
+@inject Points State  
+
+<PageTitle>Home</PageTitle>  
+
+<button class="sb" type="button" @onclick="PointCounter">Button 1</button>
+<p>you clicked @count times</p>
+
+@code  
+{
+    int count = 0;
+    private void PointCounter()  
+    {
+        int PointMulti = State.Upgrades * 2;  
+        if (State.Upgrades <= 0)  
+        {
+            State.Point++;
+            count++;
+        }  
+        else  
+        {  
+            State.Point += PointMulti;  
+        }  
+    }  
+}
