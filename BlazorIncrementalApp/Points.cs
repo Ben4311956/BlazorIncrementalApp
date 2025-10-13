@@ -12,7 +12,8 @@
             NotifyStateChanged();
         } 
     }
-    public int Upgrades { get; set; }
+    public int Upgrades { get; set; } = 0;
+    public int PointMulti => Upgrades * 2;
 
     private void NotifyStateChanged() => OnChange?.Invoke();
 }

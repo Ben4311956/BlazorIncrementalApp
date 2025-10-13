@@ -7,13 +7,28 @@
 </nav>
 
 @code {
+    private bool _disposed;
+
     protected override void OnInitialized()
     {
-        State.OnChange += StateHasChanged;
+        State.OnChange += OnStateChanged;
+    }
+
+    private void OnStateChanged()
+    {
+        if(!_disposed)
+        {
+            _ = InvokeAsync(() =>
+            {
+                if (!_disposed)
+                    StateHasChanged();
+            });
+        }
     }
 
     public void Dispose()
     {
-        State.OnChange -= StateHasChanged;
+        _disposed = true;
+        State.OnChange -= OnStateChanged;
     }
 }

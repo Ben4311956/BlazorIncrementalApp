@@ -5,23 +5,33 @@
 
 <PageTitle>Home</PageTitle>  
 
-<button class="sb" type="button" @onclick="PointCounter">Button 1</button>
-<p>you clicked @count times</p>
-
+<div class="StarterBtns">
+    <button class="sb" type="button" @onclick="PointCounter">Gain Points</button>
+    <div>
+        <h3>Upgrades: @State.Upgrades </h3>
+        <button class="ub" type="button" @onclick="UpgradeCounter">Upgrade Button</button>
+    </div>
+</div>
 @code  
 {
-    int count = 0;
     private void PointCounter()  
     {
-        int PointMulti = State.Upgrades * 2;  
-        if (State.Upgrades <= 0)  
+        if (State.Upgrades <= 0)
         {
             State.Point++;
-            count++;
         }  
         else  
         {  
-            State.Point += PointMulti;  
+            State.Point += State.PointMulti;  
         }  
-    }  
+    }
+    private void UpgradeCounter()
+    {
+        int price = (State.Upgrades + 1) * 50;
+        if (State.Point >= price)
+        {
+            State.Point -= price;
+            State.Upgrades++;
+        }
+    }
 }
