@@ -1,0 +1,19 @@
+﻿@inject Points State
+
+<nav class="top-nav">
+    <span>Points: @State.Point</span>
+    <a href="/">Home</a>
+    <a href="/vlads-dungeon">Vlad's Dungeon</a>
+</nav>
+
+@code {
+    protected override void OnInitialized()
+    {
+        State.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        State.OnChange -= StateHasChanged;
+    }
+}
