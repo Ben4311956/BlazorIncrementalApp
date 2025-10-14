@@ -7,31 +7,47 @@
 
 <div class="StarterBtns">
     <button class="sb" type="button" @onclick="PointCounter">Gain Points</button>
+</div>
+
+<div class="UpgradesBar">
+    <h2>Upgrades Bar</h2>
     <div>
-        <h3>Upgrades: @State.Upgrades </h3>
-        <button class="ub" type="button" @onclick="UpgradeCounter">Upgrade Button</button>
+        <h3>Upgrades: @(State.Upgrades - 1) </h3>
+        <button class="ub" type="button" @onclick="UpgradeBtn1">Lower Upgrade: @(State.Upgrades * 50)</button>
     </div>
+    @if (Req1)
+    {
+        <h3>Upgrades: @(State.Upgrade2 - 1)</h3>
+        <button class="ub" type="button" @onclick="UpgradeBtn2">Mid Upgrade: @(State.Upgrade2 * 500)</button>
+    }
 </div>
 @code  
 {
+    //Main Requirement
+    private int PointReq = 0;
+
+    //Upgrade Button Requirements
+    private bool Req1 => State.Point >= 500;
     private void PointCounter()  
     {
-        if (State.Upgrades <= 0)
-        {
-            State.Point++;
-        }  
-        else  
-        {  
-            State.Point += State.PointMulti;  
-        }  
+        State.Point += State.PointMulti;  
     }
-    private void UpgradeCounter()
+    private void UpgradeBtn1()
     {
-        int price = (State.Upgrades + 1) * 50;
+        int price = State.Upgrades * 50;
         if (State.Point >= price)
         {
             State.Point -= price;
             State.Upgrades++;
+        }
+    }
+    private void UpgradeBtn2()
+    {
+        int price = State.Upgrade2 * 500;
+        if (State.Point >= price)
+        {
+            State.Point -= price;
+            State.Upgrade2++;
         }
     }
 }
