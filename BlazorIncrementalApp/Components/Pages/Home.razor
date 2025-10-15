@@ -1,12 +1,17 @@
 ﻿@page "/"  
 @rendermode InteractiveServer
 @inject Points State
+@inject Buttons BState
 <MainHeader/>
 
 <PageTitle>Home</PageTitle>  
 
 <div class="StarterBtns">
-    <button class="sb" type="button" @onclick="PointCounter">Gain Points</button>
+    <button class="sb" type="button" @onclick="PointCounter">Lower Point Gain Button</button>
+    @if (BState.MidPointBtnUnlocked)
+    {
+        <button class="sb2" type="button" @onclick="PointCounter2">Middle Point Gain Button</button>
+    }
 </div>
 
 <div class="UpgradesBar">
@@ -15,7 +20,7 @@
         <h3>Upgrades: @(State.Upgrades - 1) </h3>
         <button class="ub" type="button" @onclick="UpgradeBtn1">Lower Upgrade: @(State.Upgrades * 50)</button>
     </div>
-    @if (Req1)
+    @if (State.Upgrade2Unlocked)
     {
         <h3>Upgrades: @(State.Upgrade2 - 1)</h3>
         <button class="ub" type="button" @onclick="UpgradeBtn2">Mid Upgrade: @(State.Upgrade2 * 500)</button>
@@ -23,14 +28,39 @@
 </div>
 @code  
 {
-    //Main Requirement
-    private int PointReq = 0;
+    private bool _disposed;
 
-    //Upgrade Button Requirements
-    private bool Req1 => State.Point >= 500;
+    protected override void OnInitialized()
+    {
+        BState.OnChange += OnStateChanged;
+    }
+
+    private void OnStateChanged()
+    {
+        if (!_disposed)
+        {
+            _ = InvokeAsync(() =>
+            {
+                if (!_disposed)
+                    StateHasChanged();
+            });
+        }
+    }
+
+    public void Dispose()
+    {
+        _disposed = true;
+        BState.OnChange -= OnStateChanged;
+    }
+
     private void PointCounter()  
     {
-        State.Point += State.PointMulti;  
+        State.Point += State.PointMulti;
+        CheckUnlocked();
+    }
+    private void PointCounter2()
+    {
+        State.Point += State.PointMulti * 2;
     }
     private void UpgradeBtn1()
     {
@@ -48,6 +78,17 @@
         {
             State.Point -= price;
             State.Upgrade2++;
+        }
+    }
+    private void CheckUnlocked()
+    {
+        if (State.Point >= 10000)
+        {
+            BState.MidPointBtnUnlocked = true;
+        }
+        if (State.Point >= 500)
+        {
+            State.Upgrade2Unlocked = true;
         }
     }
 }

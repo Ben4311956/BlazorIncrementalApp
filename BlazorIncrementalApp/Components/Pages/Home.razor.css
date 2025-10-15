@@ -29,6 +29,20 @@
     transition: transform 0.1s ease-in;
 }
 
+.sb2 {
+    color: #EEC8E0;
+    background: #392F5A;
+    width: 300px;
+    height: 150px;
+    border-radius: 20px;
+    border: 10px solid #A8C7BB;
+    font-size:20px;
+    font: bold;
+    text-align:center;
+    transition: transform 0.1s ease-in;
+    margin-left:20px;
+}
+
 button {
     transition: all 0.2s ease;
 }

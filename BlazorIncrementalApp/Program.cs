@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddSingleton<Points>();
+builder.Services.AddSingleton<Buttons>();
 
 var app = builder.Build();
 

@@ -15,6 +15,7 @@
     public int BasePoint { get; set; } = 1;
     public int Upgrades { get; set; } = 1;
     public int Upgrade2 { get; set; } = 1;
+    public bool Upgrade2Unlocked { get; set; }
     public int PointMulti => BasePoint * (Upgrades * Upgrade2);
 
     private void NotifyStateChanged() => OnChange?.Invoke();
