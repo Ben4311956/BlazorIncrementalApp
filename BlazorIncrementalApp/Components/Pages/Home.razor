@@ -15,15 +15,20 @@
 </div>
 
 <div class="UpgradesBar">
-    <h2>Upgrades Bar</h2>
-    <div>
-        <h3>Upgrades: @(State.Upgrades - 1) </h3>
+    <h1 class="UpgBarTitle">Upgrades Bar</h1>
+    <div class="FirstUpgradeButton">
+        <h3 class="UpgradesText">Upgrades: @(State.Upgrades - 1) </h3>
         <button class="ub" type="button" @onclick="UpgradeBtn1">Lower Upgrade: @(State.Upgrades * 50)</button>
     </div>
     @if (State.Upgrade2Unlocked)
     {
-        <h3>Upgrades: @(State.Upgrade2 - 1)</h3>
-        <button class="ub" type="button" @onclick="UpgradeBtn2">Mid Upgrade: @(State.Upgrade2 * 500)</button>
+        <h3 class="UpgradesText">Upgrades: @(State.Upgrade2 - 1)</h3>
+        <button class="ub" type="button" @onclick="UpgradeBtn2">Middle Upgrade: @(State.Upgrade2 * 500)</button>
+    }
+    @if (State.Upgrade3Unlocked)
+    {
+        <h3 class="UpgradesText">Upgrades: @(State.Upgrade3 - 1)</h3>
+        <button class="ub" type="button" @onclick="UpgradeBtn3">Higher Upgrade: @(State.Upgrade3 * 25000)</button>
     }
 </div>
 @code  
@@ -61,6 +66,7 @@
     private void PointCounter2()
     {
         State.Point += State.PointMulti * 2;
+        CheckUnlocked();
     }
     private void UpgradeBtn1()
     {
@@ -80,6 +86,15 @@
             State.Upgrade2++;
         }
     }
+    private void UpgradeBtn3()
+    {
+        int price = State.Upgrade3 * 25000;
+        if (State.Point >= price)
+        {
+            State.Point -= price;
+            State.Upgrade3++;
+        }
+    }
     private void CheckUnlocked()
     {
         if (State.Point >= 10000)
@@ -89,6 +104,10 @@
         if (State.Point >= 500)
         {
             State.Upgrade2Unlocked = true;
+        }
+        if (State.Point >= 25000)
+        {
+            State.Upgrade3Unlocked = true;
         }
     }
 }

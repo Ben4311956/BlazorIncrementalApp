@@ -1,7 +1,7 @@
 ﻿@inject Points State
 
 <nav class="top-nav">
-    <span>Points: @State.Point</span>
+    <span>Points: @Points.FormatNumbers(State.Point)</span>
     <a href="/">Home</a>
     <a href="/vlads-dungeon">Vlad's Dungeon</a>
 </nav>

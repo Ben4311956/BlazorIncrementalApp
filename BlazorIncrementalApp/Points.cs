@@ -2,8 +2,8 @@
 {
     public event Action? OnChange;
 
-    private int _point;
-    public int Point
+    private long _point;
+    public long Point
     {
         get => _point;
         set
@@ -16,7 +16,22 @@
     public int Upgrades { get; set; } = 1;
     public int Upgrade2 { get; set; } = 1;
     public bool Upgrade2Unlocked { get; set; }
-    public int PointMulti => BasePoint * (Upgrades * Upgrade2);
+    public int Upgrade3 { get; set; } = 1;
+    public bool Upgrade3Unlocked { get; set; }
+    public int PointMulti => BasePoint * (Upgrades * Upgrade2 * Upgrade3);
 
     private void NotifyStateChanged() => OnChange?.Invoke();
+
+    public static string FormatNumbers(long number)
+    {
+        if (number >= 1_000_000_000_000)
+            return (number / 1_000_000_000_000D).ToString("0.##") + "T";
+        if (number >= 1_000_000_000)
+            return (number / 1_000_000_000D).ToString("0.##") + "B";
+        if (number >= 1_000_000)
+            return (number / 1_000_000D).ToString("0.##") + "M";
+        if (number >= 1_000)
+            return (number / 1_000D).ToString("0.##") + "K";
+        return number.ToString("N0");
+    }
 }
