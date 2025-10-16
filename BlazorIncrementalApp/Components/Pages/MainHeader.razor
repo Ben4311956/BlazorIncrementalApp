@@ -1,12 +1,26 @@
 ﻿@inject Points State
+@inject MoonPoints MState
 
 <nav class="top-nav">
-    <span>Points: @Points.FormatNumbers(State.Point)</span>
+    @if (PageName == "Home")
+    {
+        <span>Points: @Points.FormatNumbers(State.Point)</span>
+    }
+    @if (PageName == "Moon")
+    {
+        <span>Moon Points: @MState.MoonPoint</span>
+    }
     <a href="/">Home</a>
-    <a href="/vlads-dungeon">Vlad's Dungeon</a>
+    @if (State.PrestigeUnlocked)
+    {
+        <a href="/Moon">Moon</a>
+        <span>Prestiges: @State.Prestige</span>
+    }
 </nav>
 
 @code {
+    [Parameter]
+    public string PageName { get; set; } = "Default Page";
     private bool _disposed;
 
     protected override void OnInitialized()

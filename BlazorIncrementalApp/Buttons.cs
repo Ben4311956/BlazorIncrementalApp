@@ -11,5 +11,6 @@
             OnChange?.Invoke();
         }
     }
+    public bool HighPointBtnUnlocked { get; set; }
 }
 

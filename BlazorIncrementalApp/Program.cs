@@ -7,6 +7,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddSingleton<Points>();
 builder.Services.AddSingleton<Buttons>();
+builder.Services.AddSingleton<MoonPoints>();
 
 var app = builder.Build();
 

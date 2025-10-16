@@ -2,7 +2,7 @@
 @rendermode InteractiveServer
 @inject Points State
 @inject Buttons BState
-<MainHeader/>
+<MainHeader PageName="Home"/>
 
 <PageTitle>Home</PageTitle>  
 
@@ -12,6 +12,11 @@
     {
         <button class="sb2" type="button" @onclick="PointCounter2">Middle Point Gain Button</button>
     }
+    @if (BState.HighPointBtnUnlocked)
+    {
+        <button class="sb3" type="button" @onclick="PointCounter3">Higher Point Gain Button</button>
+    }
+    <button class="pb" type="button">Prestige?</button>
 </div>
 
 <div class="UpgradesBar">
@@ -68,6 +73,11 @@
         State.Point += State.PointMulti * 2;
         CheckUnlocked();
     }
+    private void PointCounter3()
+    {
+        State.Point += State.PointMulti * 5;
+        CheckUnlocked();
+    }
     private void UpgradeBtn1()
     {
         int price = State.Upgrades * 50;
@@ -95,11 +105,23 @@
             State.Upgrade3++;
         }
     }
+    private void Prestige()
+    {
+        if (State.Point >= 1000000000000)
+        {
+            State.PrestigeUnlocked = true;
+            State.Point -= 1000000000000;
+        }
+    }
     private void CheckUnlocked()
     {
         if (State.Point >= 10000)
         {
             BState.MidPointBtnUnlocked = true;
+        }
+        if (State.Point >= 1000000)
+        {
+            BState.HighPointBtnUnlocked = true;
         }
         if (State.Point >= 500)
         {
