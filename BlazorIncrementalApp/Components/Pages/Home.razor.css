@@ -12,7 +12,7 @@
     padding:20px;
     background: #0198fb;
     color:#fff;
-    border:12px solid black;
+    border:3px solid black;
     border-radius:10px;
 }
 
@@ -139,12 +139,11 @@ h3 {
     top: 30px;
     width: 400px;
     height: 100vh;
-    background: #DD1C1A;
+    background: #3309c2;
     color: #FFF1D0;
     padding: 10px;
     overflow-y: auto;
     box-shadow: 2px 0 8px rgba(0,0,0,0.3);
-    border-left: 12px solid #F0C808;
 }
 
 .UpgradesBar .UpgBarTitle {

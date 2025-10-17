@@ -1,5 +1,6 @@
 ﻿@inject Points State
 @inject MoonPoints MState
+@inject NavigationManager NavigationManager
 
 <nav class="top-nav">
     @if (PageName == "Home")
@@ -15,10 +16,11 @@
     {
         <a href="/Moon">Moon</a>
         <span>Prestiges: @State.Prestige</span>
-    }
+    } 
 </nav>
 
 @code {
+    private string HeaderColor = "";
     [Parameter]
     public string PageName { get; set; } = "Default Page";
     private bool _disposed;
@@ -26,6 +28,8 @@
     protected override void OnInitialized()
     {
         State.OnChange += OnStateChanged;
+        NavigationManager.LocationChanged += OnLocationChanged;
+        UpdateColor(NavigationManager.Uri);
     }
 
     private void OnStateChanged()
@@ -44,5 +48,21 @@
     {
         _disposed = true;
         State.OnChange -= OnStateChanged;
+        NavigationManager.LocationChanged -= OnLocationChanged;
+
+    }
+
+    private void OnLocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
+    {
+        UpdateColor(e.Location);
+        StateHasChanged();
+    }
+
+    private void UpdateColor(string uri)
+    {
+        if (uri.EndsWith("/Home"))
+        {
+            
+        }
     }
 }

@@ -1,6 +1,6 @@
 body {
     font-family: "Exo 2", sans-serif;
-    background: url("Images/MainBackground.png");
+    background: linear-gradient(120deg, #20bfff, #265fec, #652df0);
     background-size:cover;
     background-position:center;
     background-repeat: no-repeat;
