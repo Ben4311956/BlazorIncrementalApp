@@ -2,6 +2,18 @@
 @rendermode InteractiveServer
 @inject Points State
 @inject Buttons BState
+
+<style>
+    body {
+        background: linear-gradient(120deg, #20bfff, #265fec, #652df0);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+    }
+</style>
+
 <MainHeader PageName="Home"/>
 
 <PageTitle>Home</PageTitle>  
@@ -112,6 +124,7 @@
         {
             State.PrestigeUnlocked = true;
             State.Point -= 1000000000000;
+            State.Prestige += 1;
         }
     }
     private void CheckUnlocked()
