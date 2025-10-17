@@ -2,7 +2,7 @@
 @inject MoonPoints MState
 @inject NavigationManager NavigationManager
 
-<nav class="top-nav">
+<nav class="top-nav" style="background:@HeaderColor;">
     @if (PageName == "Home")
     {
         <span>Points: @Points.FormatNumbers(State.Point)</span>
@@ -20,7 +20,7 @@
 </nav>
 
 @code {
-    private string HeaderColor = "";
+    private string HeaderColor = "#000000";
     [Parameter]
     public string PageName { get; set; } = "Default Page";
     private bool _disposed;
@@ -60,9 +60,13 @@
 
     private void UpdateColor(string uri)
     {
-        if (uri.EndsWith("/Home"))
+        if (uri.EndsWith("/"))
         {
-            
+            HeaderColor = "#1a237e";
+        }
+        if (uri.EndsWith("/Moon"))
+        {
+            HeaderColor = "#6a3cde";
         }
     }
 }
