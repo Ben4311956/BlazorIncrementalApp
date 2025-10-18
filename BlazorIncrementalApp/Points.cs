@@ -2,8 +2,8 @@
 {
     public event Action? OnChange;
 
-    private long _point;
-    public long Point
+    private decimal _point;
+    public decimal Point
     {
         get => _point;
         set
@@ -12,28 +12,32 @@
             NotifyStateChanged();
         }
     }
-    public int BasePoint { get; set; } = 1;
-    public int Upgrades { get; set; } = 1;
-    public int Upgrade2 { get; set; } = 1;
+    public decimal BasePoint { get; set; } = 1;
+    public decimal Upgrades { get; set; } = 1;
+    public decimal Upgrade2 { get; set; } = 1;
     public bool Upgrade2Unlocked { get; set; }
-    public int Upgrade3 { get; set; } = 1;
+    public decimal Upgrade3 { get; set; } = 1;
     public bool Upgrade3Unlocked { get; set; }
-    public int PointMulti => BasePoint * (Upgrades * Upgrade2 * Upgrade3);
-    public int Prestige { get; set; } = 0;
+    public decimal Upgrade4 { get; set; } = 1;
+    public bool Upgrade4Unlocked { get; set; }
+    public decimal PointMulti => BasePoint * ((Upgrades * Upgrade2 * Upgrade3) * Upgrade4);
+    public decimal Prestige { get; set; } = 0;
     public bool PrestigeUnlocked { get; set; }
 
     private void NotifyStateChanged() => OnChange?.Invoke();
 
-    public static string FormatNumbers(long number)
+    public static string FormatNumbers(decimal number)
     {
+        if (number >= 1_000_000_000_000_000)
+            return (number / 1_000_000_000_000_000m).ToString("0.##") + "Qd";
         if (number >= 1_000_000_000_000)
-            return (number / 1_000_000_000_000D).ToString("0.##") + "T";
+            return (number / 1_000_000_000_000m).ToString("0.##") + "T";
         if (number >= 1_000_000_000)
-            return (number / 1_000_000_000D).ToString("0.##") + "B";
+            return (number / 1_000_000_000m).ToString("0.##") + "B";
         if (number >= 1_000_000)
-            return (number / 1_000_000D).ToString("0.##") + "M";
+            return (number / 1_000_000m).ToString("0.##") + "M";
         if (number >= 1_000)
-            return (number / 1_000D).ToString("0.##") + "K";
+            return (number / 1_000m).ToString("0.##") + "K";
         return number.ToString("N0");
     }
 }

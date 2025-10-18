@@ -1,5 +1,5 @@
 ﻿public class MoonPoints
 {
-    public long MoonPoint { get; set; }
+    public decimal MoonPoint { get; set; }
 }
 

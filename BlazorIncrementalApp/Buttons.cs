@@ -12,5 +12,6 @@
         }
     }
     public bool HighPointBtnUnlocked { get; set; }
+    public bool CriticalGainUnlocked { get; set; }
 }
 

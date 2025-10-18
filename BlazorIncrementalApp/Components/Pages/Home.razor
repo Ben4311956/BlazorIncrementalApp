@@ -11,7 +11,6 @@
         background-repeat: no-repeat;
         background-attachment: fixed;
     }
-    }
 </style>
 
 <MainHeader PageName="Home"/>
@@ -48,9 +47,37 @@
         <h3 class="UpgradesText">Upgrades: @(State.Upgrade3 - 1)</h3>
         <button class="ub" type="button" @onclick="UpgradeBtn3">Higher Upgrade: @(State.Upgrade3 * 25000)</button>
     }
+    @if (State.Upgrade4Unlocked)
+    {
+        <h3 class="UpgradesText">Upgrades: @(State.Upgrade4 - 1)</h3>
+        <button class="ub" type="button" @onclick="UpgradeBtn4">Supreme Upgrade: @(State.Upgrade4 * 1000000)</button>
+    }
+    <pre>
+
+
+
+
+
+
+    
+
+
+
+                                                                                                                                                            .
+    </pre>
 </div>
+
+<div class="Shop">
+    <h1 class="ShopTitle">Shop</h1>
+    <h3 class="ProductTitle">Critical Gain:</h3>
+    <p class="ShopDescriptions">OtherWorldly ability designed to enhance point gain. </p>
+    <button class="@ButtonClass" @onclick="CriticalGain">@ButtonText</button>
+</div>
+
 @code  
 {
+    private string ButtonText => BState.CriticalGainUnlocked ? "Critical Gain Unlocked" : "Critical Gain: 1,000,000,000";
+    private string ButtonClass => BState.CriticalGainUnlocked ? "CriticalGainUnlocked" : "CriticalGainLocked";
     private bool _disposed;
 
     protected override void OnInitialized()
@@ -75,7 +102,18 @@
         _disposed = true;
         BState.OnChange -= OnStateChanged;
     }
-
+    private void CriticalGain()
+    {   
+        if (BState.CriticalGainUnlocked)
+        {
+            return;
+        }
+        else if (State.Point >= 1000000000 )
+        {
+            State.Point -= 1000000000;
+            BState.CriticalGainUnlocked = true;
+        }
+    }
     private void PointCounter()  
     {
         State.Point += State.PointMulti;
@@ -93,7 +131,7 @@
     }
     private void UpgradeBtn1()
     {
-        int price = State.Upgrades * 50;
+        decimal price = State.Upgrades * 50;
         if (State.Point >= price)
         {
             State.Point -= price;
@@ -102,7 +140,7 @@
     }
     private void UpgradeBtn2()
     {
-        int price = State.Upgrade2 * 500;
+        decimal price = State.Upgrade2 * 500;
         if (State.Point >= price)
         {
             State.Point -= price;
@@ -111,11 +149,20 @@
     }
     private void UpgradeBtn3()
     {
-        int price = State.Upgrade3 * 25000;
+        decimal price = State.Upgrade3 * 25000;
         if (State.Point >= price)
         {
             State.Point -= price;
             State.Upgrade3++;
+        }
+    }
+    private void UpgradeBtn4()
+    {
+        decimal price = State.Upgrade4 * 1000000;
+        if (State.Point >= price)
+        {
+            State.Point -= price;
+            State.Upgrade4++;
         }
     }
     private void Prestige()
@@ -144,6 +191,10 @@
         if (State.Point >= 25000)
         {
             State.Upgrade3Unlocked = true;
+        }
+        if(State.Point >= 1000000)
+        {
+            State.Upgrade4Unlocked = true;
         }
     }
 }
