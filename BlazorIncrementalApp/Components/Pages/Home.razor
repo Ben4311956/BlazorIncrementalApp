@@ -69,14 +69,15 @@
 
 <div class="Shop">
     <h1 class="ShopTitle">Shop</h1>
-    <h3 class="ProductTitle">Critical Gain:</h3>
+    <h3 class="ProductTitle">Critical Gain: @State.CriticalGainAmount</h3>
     <p class="ShopDescriptions">OtherWorldly ability designed to enhance point gain. </p>
-    <button class="@ButtonClass" @onclick="CriticalGain">@ButtonText</button>
+    <p class="ShopDescriptions">Chance: @State.CriticalGainChance %   Critical Boost: @State.CriticalBoost %</p>
+    <button class="@ButtonClass" @onclick="CriticalGain">Critical Gain: @CriticalGainPrice</button>
 </div>
 
 @code  
 {
-    private string ButtonText => BState.CriticalGainUnlocked ? "Critical Gain Unlocked" : "Critical Gain: 1,000,000,000";
+    private decimal CriticalGainPrice => BState.CriticalGainUnlocked ? (1000000000m * (decimal)Math.Pow(2, (double)State.CriticalGainAmount)) : 1000000000m;
     private string ButtonClass => BState.CriticalGainUnlocked ? "CriticalGainUnlocked" : "CriticalGainLocked";
     private bool _disposed;
 
@@ -102,32 +103,93 @@
         _disposed = true;
         BState.OnChange -= OnStateChanged;
     }
-    private void CriticalGain()
-    {   
-        if (BState.CriticalGainUnlocked)
+    private void CriticalGain()  
+    {
+        decimal BaseCost = 1000000000m;
+        decimal criticalGainValue = BaseCost * (decimal)Math.Pow(2, (double)State.CriticalGainAmount);
+
+        if (!BState.CriticalGainUnlocked && State.Point >= BaseCost)
         {
-            return;
-        }
-        else if (State.Point >= 1000000000 )
-        {
-            State.Point -= 1000000000;
+            State.Point -= BaseCost;
             BState.CriticalGainUnlocked = true;
+            State.CriticalGainAmount++;
+            State.CriticalBoost += 0.01;
+            State.CriticalGainChance += 0.01;
+
         }
-    }
+        else if (State.Point >= criticalGainValue && BState.CriticalGainUnlocked)  
+        {  
+            State.Point -= criticalGainValue;  
+            State.CriticalGainAmount++;
+            State.CriticalBoost += 0.01;
+            State.CriticalGainChance += 0.01;
+        }
+    }  
     private void PointCounter()  
     {
-        State.Point += State.PointMulti;
-        CheckUnlocked();
+        if (State.CriticalGainChance > 0)
+        {
+            Random rnd = new Random();
+            int num = rnd.Next(0, 101);
+            if (((State.CriticalGainChance * 100) - 100) >= num)
+            {
+                State.Point += State.PointMulti * (decimal)State.CriticalBoost;
+            }
+            else
+            {
+                State.Point += State.PointMulti;
+            }
+            CheckUnlocked();
+        }
+        else
+        {
+            State.Point += State.PointMulti;
+            CheckUnlocked();
+        }
     }
     private void PointCounter2()
     {
-        State.Point += State.PointMulti * 2;
-        CheckUnlocked();
+        if (State.CriticalGainChance > 0)
+        {
+            Random rnd = new Random();
+            int num = rnd.Next(0, 101);
+            if (((State.CriticalGainChance * 100) - 100) >= num)
+            {
+                State.Point += (State.PointMulti * 2) * (decimal)State.CriticalBoost;
+            }
+            else
+            {
+                State.Point += State.PointMulti * 2;
+            }
+            CheckUnlocked();
+        }
+        else
+        {
+            State.Point += State.PointMulti * 2;
+            CheckUnlocked();
+        }
     }
     private void PointCounter3()
     {
-        State.Point += State.PointMulti * 5;
-        CheckUnlocked();
+        if (State.CriticalGainChance > 0)
+        {
+            Random rnd = new Random();
+            int num = rnd.Next(0, 101);
+            if (((State.CriticalGainChance * 100) - 100) >= num)
+            {
+                State.Point += (State.PointMulti * 5) * (decimal)State.CriticalBoost;
+            }
+            else
+            {
+                State.Point += State.PointMulti * 5;
+            }
+            CheckUnlocked();
+        }
+        else
+        {
+            State.Point += State.PointMulti * 5;
+            CheckUnlocked();
+        }
     }
     private void UpgradeBtn1()
     {

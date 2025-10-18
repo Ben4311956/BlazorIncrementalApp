@@ -243,6 +243,7 @@ h3 {
     font-size: 20px;
     text-align: center;
     padding: 10px;
+    width:250px;
     box-shadow: 0 0 10px 5px rgb(67, 255, 117);
 }
 
@@ -256,4 +257,5 @@ h3 {
     font-size:20px;
     text-align: center;
     padding: 10px;
+    width:250px;
 }

@@ -20,6 +20,9 @@
     public bool Upgrade3Unlocked { get; set; }
     public decimal Upgrade4 { get; set; } = 1;
     public bool Upgrade4Unlocked { get; set; }
+    public double CriticalBoost { get; set; } = 1;
+    public int CriticalGainAmount { get; set; } = 1;
+    public double CriticalGainChance { get; set; } = 0;
     public decimal PointMulti => BasePoint * ((Upgrades * Upgrade2 * Upgrade3) * Upgrade4);
     public decimal Prestige { get; set; } = 0;
     public bool PrestigeUnlocked { get; set; }
