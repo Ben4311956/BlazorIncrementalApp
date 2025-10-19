@@ -69,16 +69,22 @@
 
 <div class="Shop">
     <h1 class="ShopTitle">Shop</h1>
-    <h3 class="ProductTitle">Critical Gain: @State.CriticalGainAmount</h3>
+    <h3 class="ProductTitle">CRITICAL GAIN: @(State.CriticalGainAmount)</h3>
     <p class="ShopDescriptions">OtherWorldly ability designed to enhance point gain. </p>
     <p class="ShopDescriptions">Chance: @State.CriticalGainChance %   Critical Boost: @State.CriticalBoost %</p>
     <button class="@ButtonClass" @onclick="CriticalGain">Critical Gain: @CriticalGainPrice</button>
+    <h3 class="ProductTitle">EXREME OVERDOSE: </h3>
+    <p class="ShopDescriptions">Point production explodes giving 3x more point gain (@(State.OverdoseAmount) Owned)</p>
+    <button class="@ButtonClass2" @onclick="Overdose">Extreme Overdose: @OverdoseGainPrice</button>
+
 </div>
 
 @code  
 {
+    private decimal OverdoseGainPrice => State.OverdoseUnlocked ? (2000000000m * (decimal)Math.Pow(10, (double)State.OverdoseAmount)) : 2000000000m;
     private decimal CriticalGainPrice => BState.CriticalGainUnlocked ? (1000000000m * (decimal)Math.Pow(2, (double)State.CriticalGainAmount)) : 1000000000m;
     private string ButtonClass => BState.CriticalGainUnlocked ? "CriticalGainUnlocked" : "CriticalGainLocked";
+    private string ButtonClass2 => State.OverdoseUnlocked ? "OverdoseUnlocked" : "OverdoseLocked";
     private bool _disposed;
 
     protected override void OnInitialized()
@@ -257,6 +263,24 @@
         if(State.Point >= 1000000)
         {
             State.Upgrade4Unlocked = true;
+        }
+    }
+    private void Overdose()
+    {
+        decimal BaseCost = 2000000000m;
+        decimal criticalGainValue = BaseCost * (decimal)Math.Pow(10, (double)State.OverdoseAmount);
+        if (State.Point >= BaseCost && !State.OverdoseUnlocked)
+        {
+            State.Point -= BaseCost;
+            State.OverdoseUnlocked = true;
+            State.Overdose += 3;
+            State.OverdoseAmount++;
+        }
+        else if (State.OverdoseUnlocked && State.Point >= criticalGainValue)
+        {
+            State.Point -= criticalGainValue;
+            State.Overdose *= 3;
+            State.OverdoseAmount++;
         }
     }
 }

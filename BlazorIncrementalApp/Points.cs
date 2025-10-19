@@ -21,9 +21,31 @@
     public decimal Upgrade4 { get; set; } = 1;
     public bool Upgrade4Unlocked { get; set; }
     public double CriticalBoost { get; set; } = 1;
-    public int CriticalGainAmount { get; set; } = 1;
+    public int CriticalGainAmount { get; set; } = 0;
     public double CriticalGainChance { get; set; } = 0;
-    public decimal PointMulti => BasePoint * ((Upgrades * Upgrade2 * Upgrade3) * Upgrade4);
+    private bool _overdoseUnlocked;
+    private decimal _overdose;
+    public bool OverdoseUnlocked 
+    {
+        get => _overdoseUnlocked;
+        set
+        {
+            _overdoseUnlocked = value;
+            NotifyStateChanged();
+        }
+    }
+    public decimal Overdose
+    {
+        get => _overdose;
+        set
+        {
+            _overdose = value;
+            NotifyStateChanged();
+        }
+    }
+    public decimal OverdoseAmount { get; set; } = 0;
+    public decimal OverdoseMulti => OverdoseUnlocked ? Overdose : 1;
+    public decimal PointMulti => BasePoint * (((Upgrades * Upgrade2 * Upgrade3) * Upgrade4) * OverdoseMulti);
     public decimal Prestige { get; set; } = 0;
     public bool PrestigeUnlocked { get; set; }
 
@@ -31,16 +53,24 @@
 
     public static string FormatNumbers(decimal number)
     {
-        if (number >= 1_000_000_000_000_000)
-            return (number / 1_000_000_000_000_000m).ToString("0.##") + "Qd";
-        if (number >= 1_000_000_000_000)
-            return (number / 1_000_000_000_000m).ToString("0.##") + "T";
-        if (number >= 1_000_000_000)
-            return (number / 1_000_000_000m).ToString("0.##") + "B";
-        if (number >= 1_000_000)
-            return (number / 1_000_000m).ToString("0.##") + "M";
-        if (number >= 1_000)
-            return (number / 1_000m).ToString("0.##") + "K";
+        if (number >= 1e27m)
+            return (number / 1e27m).ToString("0.##") + "Oc";
+        if (number >= 1e24m) 
+            return (number / 1e24m).ToString("0.##") + "Sp";
+        if (number >= 1e21m)
+            return (number / 1e21m).ToString("0.##") + "Sx";
+        if (number >= 1e18m)
+            return (number / 1e18m).ToString("0.##") + "Qn";
+        if (number >= 1e15m)
+            return (number / 1e15m).ToString("0.##") + "Qd";
+        if (number >= 1e12m) 
+            return (number / 1e12m).ToString("0.##") + "T";
+        if (number >= 1e9m) 
+            return (number / 1e9m).ToString("0.##") + "B";
+        if (number >= 1e6m) 
+            return (number / 1e6m).ToString("0.##") + "M";
+        if (number >= 1e3m) 
+            return (number / 1e3m).ToString("0.##") + "K";
         return number.ToString("N0");
     }
 }
