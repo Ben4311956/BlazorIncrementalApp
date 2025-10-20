@@ -72,19 +72,26 @@
     <h3 class="ProductTitle">CRITICAL GAIN: @(State.CriticalGainAmount)</h3>
     <p class="ShopDescriptions">OtherWorldly ability designed to enhance point gain. </p>
     <p class="ShopDescriptions">Chance: @State.CriticalGainChance %   Critical Boost: @State.CriticalBoost %</p>
-    <button class="@ButtonClass" @onclick="CriticalGain">Critical Gain: @CriticalGainPrice</button>
-    <h3 class="ProductTitle">EXREME OVERDOSE: </h3>
+    <button class="@ButtonClass" @onclick="CriticalGain">Critical Gain: @Points.FormatNumbers(CriticalGainPrice)</button>
+    <h3 class="ProductTitle">EXREME OVERDOSE: @(State.OverdoseAmount)</h3>
     <p class="ShopDescriptions">Point production explodes giving 3x more point gain (@(State.OverdoseAmount) Owned)</p>
-    <button class="@ButtonClass2" @onclick="Overdose">Extreme Overdose: @OverdoseGainPrice</button>
+    <button class="@ButtonClass2" @onclick="Overdose">Extreme Overdose: @Points.FormatNumbers(OverdoseGainPrice)</button>
+    <h3 class="ProductTitle">AUTO CLICKER: @AutoClickerOwned</h3>
+    <p class="ShopDescriptions">Ever get tired of clicking? don't worry, this one will click for you!</p>
+    <button class="@ButtonClass3" @onclick="AutoClicker">Auto Clicker: @Points.FormatNumbers(AutoClickerGainPrice) @State.AutoClickerUpgrades</button>
 
 </div>
 
 @code  
 {
+    private bool AutoClickerRunning = false;
+    private string AutoClickerOwned => BState.AutoClickerUnlocked ? "(Owned)" : "(Unowned)";
+    private decimal AutoClickerGainPrice => BState.AutoClickerUnlocked ? (1000000000000m * (decimal)Math.Pow(2, (double)State.AutoClickerUpgrades)) : 1000000000000m;
     private decimal OverdoseGainPrice => State.OverdoseUnlocked ? (2000000000m * (decimal)Math.Pow(10, (double)State.OverdoseAmount)) : 2000000000m;
     private decimal CriticalGainPrice => BState.CriticalGainUnlocked ? (1000000000m * (decimal)Math.Pow(2, (double)State.CriticalGainAmount)) : 1000000000m;
     private string ButtonClass => BState.CriticalGainUnlocked ? "CriticalGainUnlocked" : "CriticalGainLocked";
     private string ButtonClass2 => State.OverdoseUnlocked ? "OverdoseUnlocked" : "OverdoseLocked";
+    private string ButtonClass3 => BState.AutoClickerUnlocked ? "AutoClickerUnlocked" : "AutoClickerLocked";
     private bool _disposed;
 
     protected override void OnInitialized()
@@ -281,6 +288,39 @@
             State.Point -= criticalGainValue;
             State.Overdose *= 3;
             State.OverdoseAmount++;
+        }
+    }
+    private async Task AutoClicker()
+    {
+        if (AutoClickerRunning)
+        {
+            return;
+        }
+
+        decimal BaseCost = 1000000000000m;
+        decimal criticalGainValue = BaseCost * (decimal)Math.Pow(2, (double)State.AutoClickerUpgrades);
+
+        if (!BState.AutoClickerUnlocked && State.Point >= BaseCost)
+        {
+            State.Point -= BaseCost;
+            BState.AutoClickerUnlocked = true;
+            State.AutoClickerUpgrades++;
+        }
+        else if (BState.AutoClickerUnlocked && State.Point >= criticalGainValue)
+        {
+            State.Point -= criticalGainValue;
+            State.AutoClickerUpgrades++;
+        }
+        if (BState.AutoClickerUnlocked)
+        {
+            AutoClickerRunning = true;
+
+            while (AutoClickerRunning)
+            {
+                State.Point += State.PointMulti;
+                StateHasChanged();
+                await Task.Delay(State.DelayAmount / Math.Max(State.AutoClickerUpgrades, 1));
+            }
         }
     }
 }

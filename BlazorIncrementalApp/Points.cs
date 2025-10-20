@@ -45,6 +45,8 @@
     }
     public decimal OverdoseAmount { get; set; } = 0;
     public decimal OverdoseMulti => OverdoseUnlocked ? Overdose : 1;
+    public int DelayAmount { get; set; } = 1000;
+    public int AutoClickerUpgrades { get; set; } = 0;
     public decimal PointMulti => BasePoint * (((Upgrades * Upgrade2 * Upgrade3) * Upgrade4) * OverdoseMulti);
     public decimal Prestige { get; set; } = 0;
     public bool PrestigeUnlocked { get; set; }

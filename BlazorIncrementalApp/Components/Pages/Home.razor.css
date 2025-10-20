@@ -244,6 +244,7 @@ h3 {
     text-align: center;
     padding: 10px;
     width:250px;
+    height:68px;
     box-shadow: 0 0 10px 5px rgb(67, 255, 117);
 }
 
@@ -258,6 +259,7 @@ h3 {
     text-align: center;
     padding: 10px;
     width:250px;
+    height:68px;
 }
 
 .OverdoseUnlocked {
@@ -270,6 +272,7 @@ h3 {
     text-align: center;
     padding: 10px;
     width: 250px;
+    height:68px;
     box-shadow: 0 0 10px 5px rgb(67, 255, 117);
 }
 
@@ -283,4 +286,32 @@ h3 {
     text-align: center;
     padding: 10px;
     width: 250px;
+    height:68px;
+}
+
+.AutoClickerUnlocked {
+    background: #14c600;
+    border: none;
+    border-radius: 50px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    padding: 10px;
+    width: 250px;
+    height: 68px;
+    box-shadow: 0 0 10px 5px rgb(67, 255, 117);
+}
+
+.AutoClickerLocked {
+    background: #a40202;
+    border: 1px solid #bf1e1e;
+    border-radius: 50px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    padding: 10px;
+    width: 250px;
+    height: 68px;
 }
