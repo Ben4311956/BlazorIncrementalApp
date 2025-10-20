@@ -84,6 +84,7 @@
 
 @code  
 {
+    private CancellationTokenSource? AutoClickerCts;
     private bool AutoClickerRunning = false;
     private string AutoClickerOwned => BState.AutoClickerUnlocked ? "(Owned)" : "(Unowned)";
     private decimal AutoClickerGainPrice => BState.AutoClickerUnlocked ? (1000000000000m * (decimal)Math.Pow(2, (double)State.AutoClickerUpgrades)) : 1000000000000m;
@@ -97,6 +98,13 @@
     protected override void OnInitialized()
     {
         BState.OnChange += OnStateChanged;
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        if (BState.AutoClickerUnlocked && !AutoClickerRunning)
+        {
+            await AutoClicker();
+        }
     }
 
     private void OnStateChanged()
@@ -292,11 +300,6 @@
     }
     private async Task AutoClicker()
     {
-        if (AutoClickerRunning)
-        {
-            return;
-        }
-
         decimal BaseCost = 1000000000000m;
         decimal criticalGainValue = BaseCost * (decimal)Math.Pow(2, (double)State.AutoClickerUpgrades);
 
@@ -311,16 +314,28 @@
             State.Point -= criticalGainValue;
             State.AutoClickerUpgrades++;
         }
-        if (BState.AutoClickerUnlocked)
+        if (BState.AutoClickerUnlocked && !AutoClickerRunning)
         {
             AutoClickerRunning = true;
+            AutoClickerCts = new CancellationTokenSource();
 
-            while (AutoClickerRunning)
+            _ = RunAutoClickerLoop(AutoClickerCts.Token);
+        }
+    }
+    private async Task RunAutoClickerLoop(CancellationToken token)
+    {
+        try
+        {
+            while (!token.IsCancellationRequested)
             {
                 State.Point += State.PointMulti;
                 StateHasChanged();
-                await Task.Delay(State.DelayAmount / Math.Max(State.AutoClickerUpgrades, 1));
+                await Task.Delay(State.DelayAmount / Math.Max(State.AutoClickerUpgrades, 1), token);
             }
+        }
+        catch (TaskCanceledException)
+        {
+            
         }
     }
 }
