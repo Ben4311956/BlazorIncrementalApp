@@ -315,3 +315,101 @@ h3 {
     width: 250px;
     height: 68px;
 }
+
+.BlackMarket {
+    user-select: none;
+    position: fixed;
+    height: 300px;
+    width: 900px;
+    top: 300px;
+    left: 75px;
+    padding: 20px;
+    background: linear-gradient(#5f5f5f,#717171,#8f8f8f,#5f5f5f);
+    border: 3px solid black;
+    border-radius:10px;
+    overflow-x: auto;
+    overflow-y: hidden
+}
+
+.ProductContainer {
+    display:flex;
+    overflow-x: auto;
+    gap:20px;
+}
+.productBox {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    width:250px;
+    gap:10px;
+    overflow-y: hidden;
+}
+
+.productBox button {
+    margin-bottom:auto;
+}
+
+.BlackMarketTitle {
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    color:white;
+    position: relative;
+    top:-20px;
+    left:0;
+    border-bottom:3px solid black;
+}
+
+.BlackMarketSubtitle {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin:0;
+    color: transparent;
+    background-image: linear-gradient(90deg, #ffea00,#eadb30,#e1be19,#e88d36);
+    background-clip: text;
+}
+
+.BlackMarketDescription {
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    margin:0;
+    text-align:center;
+}
+
+.Pet1Locked {
+    height:70px;
+    width:200px;
+    background:#800e0e;
+    color:#fff;
+    font-weight: bold;
+    font-size: 30px;
+    border:1px solid #b00101;
+    border-radius:5px;
+    margin: auto;
+}
+
+.Pet1Unequipped {
+    height: 70px;
+    width: 200px;
+    background: #14c600;
+    color: #fff;
+    font-weight: bold;
+    font-size: 30px;
+    border: 1px solid rgb(67, 255, 117);
+    border-radius: 5px;
+    margin: auto;
+}
+
+.Pet1Equipped {
+    height: 70px;
+    width: 200px;
+    background: #800e0e;
+    color: #fff;
+    font-weight: bold;
+    font-size: 30px;
+    border: 1px solid #b00101;
+    border-radius: 5px;
+    margin: auto;
+}

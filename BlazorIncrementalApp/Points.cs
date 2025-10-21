@@ -47,7 +47,14 @@
     public decimal OverdoseMulti => OverdoseUnlocked ? Overdose : 1;
     public int DelayAmount { get; set; } = 1000;
     public int AutoClickerUpgrades { get; set; } = 0;
-    public decimal PointMulti => BasePoint * (((Upgrades * Upgrade2 * Upgrade3) * Upgrade4) * OverdoseMulti);
+    public decimal PointMulti => BasePoint * (((Upgrades * Upgrade2 * Upgrade3) * Upgrade4) * OverdoseMulti) * PetsMulti;
+    public decimal PetsMulti => Pet1Boost * Pet2Boost;
+    public bool Pet1 { get; set; }
+    public decimal Pet1Boost { get; set; } = 1m;
+    public bool Pet1Equipped { get; set; }
+    public bool Pet2 { get; set; }
+    public decimal Pet2Boost { get; set; } = 1m;
+    public bool Pet2Equipped { get; set; }
     public decimal Prestige { get; set; } = 0;
     public bool PrestigeUnlocked { get; set; }
 

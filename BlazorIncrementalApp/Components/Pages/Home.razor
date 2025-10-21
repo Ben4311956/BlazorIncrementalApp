@@ -82,6 +82,17 @@
 
 </div>
 
+<div class="BlackMarket">
+    <h1 class="BlackMarketTitle">Black Market</h1>
+    <div class="ProductContainer">
+        <div class="productBox">
+            <p class="BlackMarketSubtitle">Baby Dragon</p>
+            <p class="BlackMarketDescription">The Baby Dragon is a tame little creature that gives 1.2x point boost. Costs 5000 Points</p>
+            <button class="@Pet1Class()" @onclick="Pet1">@Pet1ButtonString()</button>
+        </div>
+    </div>
+</div>
+
 @code  
 {
     private CancellationTokenSource? AutoClickerCts;
@@ -335,7 +346,65 @@
         }
         catch (TaskCanceledException)
         {
-            
+
+        }
+    }
+    private string Pet1Class()
+    {
+        if (!State.Pet1)
+        {
+            return "Pet1Locked";
+        }
+        else
+        {
+            if (State.Pet1Equipped)
+            {
+                return "Pet1Equipped";
+            }
+            else
+            {
+                return "Pet1Unequipped";
+            }
+        }
+
+    }
+    private string Pet1ButtonString()
+    {
+        if (!State.Pet1)
+        {
+            return "LOCKED";
+        }
+        else
+        {
+            if (State.Pet1Equipped)
+            {
+                return "Unequip";
+            }
+            else
+            {
+                return "Equip";
+            }
+        }
+    }
+    private void Pet1()
+    {
+        if (!State.Pet1 && State.Point >= 5000)
+        {
+            State.Point -= 5000;
+            State.Pet1 = true;
+            State.Pet1Equipped = true;
+            State.Pet1Boost += 0.2m;
+        }
+
+        if (State.Pet1 && State.Pet1Equipped)
+        {
+            State.Pet1Equipped = false;
+            State.Pet1Boost -= 0.2m;
+        }
+        else if (State.Pet1 && !State.Pet1Equipped)
+        {
+            State.Pet1Equipped = true;
+            State.Pet1Boost += 0.2m;
         }
     }
 }
