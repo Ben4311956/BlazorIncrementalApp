@@ -55,6 +55,9 @@
     public bool Pet2 { get; set; }
     public decimal Pet2Boost { get; set; } = 1m;
     public bool Pet2Equipped { get; set; }
+    public bool Pet3 { get; set; }
+    public decimal Pet3Boost { get; set; } = 1m;
+    public bool Pet3Equipped { get; set; }
     public decimal Prestige { get; set; } = 0;
     public bool PrestigeUnlocked { get; set; }
 

@@ -370,6 +370,26 @@ h3 {
     background-clip: text;
 }
 
+.GolemSubtitle {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+    color: transparent;
+    background-image: linear-gradient(90deg, #5a1086,#8020a7,#c224d4);
+    background-clip: text;
+}
+
+.AdamIsABadamSubtitle {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+    color: transparent;
+    background-image: linear-gradient(90deg, #ff0404,#ae1111,#970e0e);
+    background-clip: text;
+}
+
 .BlackMarketDescription {
     color: #fff;
     font-weight: bold;
@@ -403,6 +423,78 @@ h3 {
 }
 
 .Pet1Equipped {
+    height: 70px;
+    width: 200px;
+    background: #800e0e;
+    color: #fff;
+    font-weight: bold;
+    font-size: 30px;
+    border: 1px solid #b00101;
+    border-radius: 5px;
+    margin: auto;
+}
+
+.Pet2Locked {
+    height: 70px;
+    width: 200px;
+    background: #800e0e;
+    color: #fff;
+    font-weight: bold;
+    font-size: 30px;
+    border: 1px solid #b00101;
+    border-radius: 5px;
+    margin: auto;
+}
+
+.Pet2Unequipped {
+    height: 70px;
+    width: 200px;
+    background: #14c600;
+    color: #fff;
+    font-weight: bold;
+    font-size: 30px;
+    border: 1px solid rgb(67, 255, 117);
+    border-radius: 5px;
+    margin: auto;
+}
+
+.Pet2Equipped {
+    height: 70px;
+    width: 200px;
+    background: #800e0e;
+    color: #fff;
+    font-weight: bold;
+    font-size: 30px;
+    border: 1px solid #b00101;
+    border-radius: 5px;
+    margin: auto;
+}
+
+.Pet3Locked {
+    height: 70px;
+    width: 200px;
+    background: #800e0e;
+    color: #fff;
+    font-weight: bold;
+    font-size: 30px;
+    border: 1px solid #b00101;
+    border-radius: 5px;
+    margin: auto;
+}
+
+.Pet3Unequipped {
+    height: 70px;
+    width: 200px;
+    background: #14c600;
+    color: #fff;
+    font-weight: bold;
+    font-size: 30px;
+    border: 1px solid rgb(67, 255, 117);
+    border-radius: 5px;
+    margin: auto;
+}
+
+.Pet3Equipped {
     height: 70px;
     width: 200px;
     background: #800e0e;

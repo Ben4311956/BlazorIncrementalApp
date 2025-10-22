@@ -90,6 +90,16 @@
             <p class="BlackMarketDescription">The Baby Dragon is a tame little creature that gives 1.2x point boost. Costs 5000 Points</p>
             <button class="@Pet1Class()" @onclick="Pet1">@Pet1ButtonString()</button>
         </div>
+        <div class="productBox">
+            <p class="GolemSubtitle">Golem</p>
+            <p class="BlackMarketDescription">The Golem is a large heavy pet that grants a 1.5x point boost. Costs 100,000 Points</p>
+            <button class="@Pet2Class()" @onclick="Pet2">@Pet2ButtonString()</button>
+        </div>
+        <div class="productBox">
+            <p class="AdamIsABadamSubtitle">Adam Is A Badam</p>
+            <p class="BlackMarketDescription">Adam Is A Badam is a rabid little boy and gives a 2x point boost. Costs 1 Billion Points</p>
+            <button class="@Pet3Class()" @onclick="Pet3">@Pet3ButtonString()</button>
+        </div>
     </div>
 </div>
 
@@ -405,6 +415,122 @@
         {
             State.Pet1Equipped = true;
             State.Pet1Boost += 0.2m;
+        }
+    }
+    private string Pet2Class()
+    {
+        if (!State.Pet2)
+        {
+            return "Pet2Locked";
+        }
+        else
+        {
+            if (State.Pet2Equipped)
+            {
+                return "Pet2Equipped";
+            }
+            else
+            {
+                return "Pet2Unequipped";
+            }
+        }
+
+    }
+    private string Pet2ButtonString()
+    {
+        if (!State.Pet2)
+        {
+            return "LOCKED";
+        }
+        else
+        {
+            if (State.Pet2Equipped)
+            {
+                return "Unequip";
+            }
+            else
+            {
+                return "Equip";
+            }
+        }
+    }
+    private void Pet2()
+    {
+        if (!State.Pet2 && State.Point >= 100000)
+        {
+            State.Point -= 100000;
+            State.Pet2 = true;
+            State.Pet2Equipped = true;
+            State.Pet2Boost += 0.5m;
+        }
+
+        if (State.Pet2 && State.Pet2Equipped)
+        {
+            State.Pet2Equipped = false;
+            State.Pet2Boost -= 0.5m;
+        }
+        else if (State.Pet2 && !State.Pet2Equipped)
+        {
+            State.Pet2Equipped = true;
+            State.Pet2Boost += 0.5m;
+        }
+    }
+    private string Pet3Class()
+    {
+        if (!State.Pet3)
+        {
+            return "Pet3Locked";
+        }
+        else
+        {
+            if (State.Pet3Equipped)
+            {
+                return "Pet3Equipped";
+            }
+            else
+            {
+                return "Pet3Unequipped";
+            }
+        }
+
+    }
+    private string Pet3ButtonString()
+    {
+        if (!State.Pet3)
+        {
+            return "LOCKED";
+        }
+        else
+        {
+            if (State.Pet3Equipped)
+            {
+                return "Unequip";
+            }
+            else
+            {
+                return "Equip";
+            }
+        }
+    }
+    private void Pet3()
+    {
+        if (!State.Pet3 && State.Point >= 1000000000)
+        {
+            State.Point -= 1000000000;
+            State.Pet3 = true;
+            State.Pet3Equipped = true;
+            State.Pet3Boost += 1m;
+        }
+
+        if (State.Pet3 && State.Pet3Equipped)
+        {
+            State.Pet3Equipped = false;
+            State.Pet3Boost -= 1m;
+        }
+        else if (State.Pet3 && !State.Pet3Equipped)
+        {
+            State.Pet3Equipped = true;
+            State.Pet3Boost += 1m;
         }
     }
 }
