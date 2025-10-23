@@ -102,10 +102,14 @@
         </div>
         <div class="productBox">
             <p class="EvoWizardSubtitle">Evo Wizard</p>
-            <p class="BlackMarketDescription">Evo Wizard is a pyromaniac and gives a 3x point boost. Costs 1 Quadrillion Points.</p>
+            <p class="BlackMarketDescription">Evo Wizard is a pyromaniac and gives a 3x point boost. Costs 1 Quadrillion Points</p>
             <button class="@Pet4Class()" @onclick="Pet4">@Pet4ButtonString()</button>
         </div>
-
+        <div class="productBox">
+            <p class="MoonStagSubtitle">Moon Stag</p>
+            <p class="BlackMarketDescription">The Moon Stag is an entity that grants a 5x point boost. Costs 500 quintillion Points</p>
+            <button class="@Pet5Class()" @onclick="Pet5">@Pet5ButtonString()</button>
+        </div>
     </div>
 </div>
 
@@ -597,4 +601,63 @@
             State.Pet4Boost += 2m;
         }
     }
+    private string Pet5Class()
+    {
+        if (!State.Pet5)
+        {
+            return "Pet5Locked";
+        }
+        else
+        {
+            if (State.Pet5Equipped)
+            {
+                return "Pet5Equipped";
+            }
+            else
+            {
+                return "Pet5Unequipped";
+            }
+        }
+
+    }
+    private string Pet5ButtonString()
+    {
+        if (!State.Pet5)
+        {
+            return "LOCKED";
+        }
+        else
+        {
+            if (State.Pet5Equipped)
+            {
+                return "Unequip";
+            }
+            else
+            {
+                return "Equip";
+            }
+        }
+    }
+    private void Pet5()
+    {
+        if (!State.Pet5 && State.Point >= 500000000000000000000m)
+        {
+            State.Point -= 500000000000000000000m;
+            State.Pet5 = true;
+            State.Pet4Equipped = true;
+            State.Pet4Boost += 4m;
+        }
+
+        if (State.Pet5 && State.Pet5Equipped)
+        {
+            State.Pet5Equipped = false;
+            State.Pet5Boost -= 4m;
+        }
+        else if (State.Pet5 && !State.Pet5Equipped)
+        {
+            State.Pet5Equipped = true;
+            State.Pet5Boost += 4m;
+        }
+    }
+
 }

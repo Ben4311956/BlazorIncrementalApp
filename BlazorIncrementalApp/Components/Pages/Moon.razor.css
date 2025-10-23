@@ -1,3 +1,49 @@
 ﻿body {
 
 }
+
+.MoonMain {
+    user-select: none;
+    position: fixed;
+    left: 50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+    display:block;
+    transition: transform 0.3s ease;
+
+}
+
+.MoonButton {
+    position: fixed;
+    left:50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+    border: none;
+    background: none;
+    padding:0;
+    cursor: pointer;
+}
+
+.MoonButton:hover .MoonMain {
+    animation: constantRotate 4s linear infinite;
+}
+
+@keyframes constantRotate {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+button {
+    transition: transform 0.5s ease-in-out;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+button:active {
+    transform: scale(0.8);
+}
