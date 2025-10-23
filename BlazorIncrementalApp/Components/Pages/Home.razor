@@ -71,14 +71,14 @@
     <h1 class="ShopTitle">Shop</h1>
     <h3 class="ProductTitle">CRITICAL GAIN: @(State.CriticalGainAmount)</h3>
     <p class="ShopDescriptions">OtherWorldly ability designed to enhance point gain. </p>
-    <p class="ShopDescriptions">Chance: @State.CriticalGainChance %   Critical Boost: @State.CriticalBoost %</p>
+    <p class="ShopDescriptions">Chance: @(State.CriticalGainChance * 100) %   Critical Boost: @(State.CriticalBoost * 100 - 100) %</p>
     <button class="@ButtonClass" @onclick="CriticalGain">Critical Gain: @Points.FormatNumbers(CriticalGainPrice)</button>
     <h3 class="ProductTitle">EXREME OVERDOSE: @(State.OverdoseAmount)</h3>
     <p class="ShopDescriptions">Point production explodes giving 3x more point gain (@(State.OverdoseAmount) Owned)</p>
     <button class="@ButtonClass2" @onclick="Overdose">Extreme Overdose: @Points.FormatNumbers(OverdoseGainPrice)</button>
     <h3 class="ProductTitle">AUTO CLICKER: @AutoClickerOwned</h3>
     <p class="ShopDescriptions">Ever get tired of clicking? don't worry, this one will click for you!</p>
-    <button class="@ButtonClass3" @onclick="AutoClicker">Auto Clicker: @Points.FormatNumbers(AutoClickerGainPrice) @State.AutoClickerUpgrades</button>
+    <button class="@ButtonClass3" @onclick="AutoClicker">Auto Clicker: @Points.FormatNumbers(AutoClickerGainPrice)</button>
 
 </div>
 
@@ -96,10 +96,16 @@
             <button class="@Pet2Class()" @onclick="Pet2">@Pet2ButtonString()</button>
         </div>
         <div class="productBox">
-            <p class="AdamIsABadamSubtitle">Adam Is A Badam</p>
-            <p class="BlackMarketDescription">Adam Is A Badam is a rabid little boy and gives a 2x point boost. Costs 1 Billion Points</p>
+            <p class="InfernoDragonSubtitle">Inferno Dragon</p>
+            <p class="BlackMarketDescription">The Inferno Dragon shoots lasers and gives a 2x point boost. Costs 1 Billion Points</p>
             <button class="@Pet3Class()" @onclick="Pet3">@Pet3ButtonString()</button>
         </div>
+        <div class="productBox">
+            <p class="EvoWizardSubtitle">Evo Wizard</p>
+            <p class="BlackMarketDescription">Evo Wizard is a pyromaniac and gives a 3x point boost. Costs 1 Quadrillion Points.</p>
+            <button class="@Pet4Class()" @onclick="Pet4">@Pet4ButtonString()</button>
+        </div>
+
     </div>
 </div>
 
@@ -531,6 +537,64 @@
         {
             State.Pet3Equipped = true;
             State.Pet3Boost += 1m;
+        }
+    }
+    private string Pet4Class()
+    {
+        if (!State.Pet4)
+        {
+            return "Pet4Locked";
+        }
+        else
+        {
+            if (State.Pet4Equipped)
+            {
+                return "Pet4Equipped";
+            }
+            else
+            {
+                return "Pet4Unequipped";
+            }
+        }
+
+    }
+    private string Pet4ButtonString()
+    {
+        if (!State.Pet4)
+        {
+            return "LOCKED";
+        }
+        else
+        {
+            if (State.Pet4Equipped)
+            {
+                return "Unequip";
+            }
+            else
+            {
+                return "Equip";
+            }
+        }
+    }
+    private void Pet4()
+    {
+        if (!State.Pet4 && State.Point >= 1000000000000000)
+        {
+            State.Point -= 1000000000000000;
+            State.Pet4 = true;
+            State.Pet4Equipped = true;
+            State.Pet4Boost += 2m;
+        }
+
+        if (State.Pet4 && State.Pet4Equipped)
+        {
+            State.Pet4Equipped = false;
+            State.Pet4Boost -= 2m;
+        }
+        else if (State.Pet4 && !State.Pet4Equipped)
+        {
+            State.Pet4Equipped = true;
+            State.Pet4Boost += 2m;
         }
     }
 }
