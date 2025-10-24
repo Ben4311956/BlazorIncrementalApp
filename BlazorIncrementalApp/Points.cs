@@ -20,6 +20,8 @@
     public bool Upgrade3Unlocked { get; set; }
     public decimal Upgrade4 { get; set; } = 1;
     public bool Upgrade4Unlocked { get; set; }
+    public decimal Upgrade5 { get; set; } = 1;
+    public bool Upgrade5Unlocked { get; set; }
     public double CriticalBoost { get; set; } = 1;
     public int CriticalGainAmount { get; set; } = 0;
     public double CriticalGainChance { get; set; } = 0;
@@ -47,8 +49,8 @@
     public decimal OverdoseMulti => OverdoseUnlocked ? Overdose : 1;
     public int DelayAmount { get; set; } = 1000;
     public int AutoClickerUpgrades { get; set; } = 0;
-    public decimal PointMulti => BasePoint * (((Upgrades * Upgrade2 * Upgrade3) * Upgrade4) * OverdoseMulti) * PetsMulti;
-    public decimal PetsMulti => Pet1Boost * Pet2Boost;
+    public decimal PointMulti => BasePoint * ((((Upgrades * Upgrade2 * Upgrade3) * Upgrade4) * Upgrade5) * OverdoseMulti) * PetsMulti;
+    public decimal PetsMulti => Pet1Boost * Pet2Boost * Pet3Boost * Pet4Boost * Pet5Boost;
     public bool Pet1 { get; set; }
     public decimal Pet1Boost { get; set; } = 1m;
     public bool Pet1Equipped { get; set; }

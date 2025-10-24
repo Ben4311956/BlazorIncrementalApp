@@ -1,5 +1,6 @@
 ﻿@page "/Moon"
 @inject MoonPoints State
+@implements IDisposable
 
 <style>
     body {
@@ -8,9 +9,25 @@
 </style>
 <MainHeader PageName="Moon"/>
 
-<button type="button" class="MoonButton">
-    <img class="MoonMain" src="Images/full-moon.png" alt="The Moon" />
-</button>
+
+@if (State.MoonUnlocked)
+{
+    <button type="button" class="MoonButton">
+        <img class="MoonMain" src="Images/full-moon.png" alt="The Moon" />
+    </button>
+}
+else
+{
+    <h1 class="Rejection">The Moon Rejects You</h1>
+}
 
 @code {
+    protected override void OnInitialized()
+    {
+        State.OnChange += StateHasChanged;
+    }
+    public void Dispose()
+    {
+        State.OnChange += StateHasChanged;
+    }
 }
