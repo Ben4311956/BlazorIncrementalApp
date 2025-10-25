@@ -10,17 +10,7 @@
             NotifyStateChanged();
         }
     }
-
-    private bool _moonUnlocked;
-    public bool MoonUnlocked 
-    { get => _moonUnlocked; 
-        set 
-        {
-            _moonUnlocked = value;
-            NotifyStateChanged();
-        } 
-    }
-
+    public bool MoonUnlocked { get; set; }
     private void NotifyStateChanged() => OnChange?.Invoke();
 }
 

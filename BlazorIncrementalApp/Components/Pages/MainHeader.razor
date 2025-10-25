@@ -28,6 +28,7 @@
     protected override void OnInitialized()
     {
         State.OnChange += OnStateChanged;
+        MState.OnChange += OnStateChanged;
         NavigationManager.LocationChanged += OnLocationChanged;
         UpdateColor(NavigationManager.Uri);
     }
@@ -48,6 +49,7 @@
     {
         _disposed = true;
         State.OnChange -= OnStateChanged;
+        MState.OnChange -= OnStateChanged;
         NavigationManager.LocationChanged -= OnLocationChanged;
 
     }

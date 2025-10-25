@@ -1,5 +1,6 @@
 ﻿@page "/Moon"
 @inject MoonPoints State
+@rendermode InteractiveServer
 @implements IDisposable
 
 <style>
@@ -9,12 +10,16 @@
 </style>
 <MainHeader PageName="Moon"/>
 
-
 @if (State.MoonUnlocked)
 {
-    <button type="button" class="MoonButton">
+    <button type="button" class="MoonButton" @onclick="AddPoint">
         <img class="MoonMain" src="Images/full-moon.png" alt="The Moon" />
     </button>
+
+    @foreach (var effect in effects)
+    {
+        <div class="floating-effect" style="--offset:@(effect.Offset);">+@(State.MoonPoint)</div>
+    }
 }
 else
 {
@@ -22,12 +27,36 @@ else
 }
 
 @code {
+    private List<FloatingEffect> effects = new();
+    private int counter = 0;
+    private Random rand = new();
+
+    private async Task AddPoint()
+    {
+        var id = counter++;
+        var offset = rand.Next(-4, 5);
+        effects.Add(new FloatingEffect { Id = id, Offset = offset });
+        StateHasChanged();
+
+        await Task.Delay(1200);
+        effects.RemoveAll(e => e.Id == id);
+        StateHasChanged();
+    }
+
+
+
     protected override void OnInitialized()
     {
         State.OnChange += StateHasChanged;
     }
     public void Dispose()
     {
-        State.OnChange += StateHasChanged;
+        State.OnChange -= StateHasChanged;
+    }
+
+    private class FloatingEffect
+    {
+        public int Id { get; set; }
+        public int Offset { get; set; }
     }
 }
