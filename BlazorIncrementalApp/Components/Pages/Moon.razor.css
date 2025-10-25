@@ -43,14 +43,14 @@
 @keyframes floatUp {
     0% {
         opacity: 1;
-        transform: translate(-50%, -50%) translateX(0) translateX(calc(var(--offset) * 1px));
+        transform:translateX(calc(var(--offset) * 1px)) translateY(0);
     }
     80% {
         opacity: 1;
     }
     100% {
         opacity: 0;
-        transform: translate(-50%, -50%) translateX(-50px) translateX(calc(var(--offset) * 1px)) translateY(-60px);
+        transform:translateX(calc(var(--offset) * 1px)) translateY(-60px);
     }
 }
 
