@@ -30,7 +30,7 @@
     position:fixed;
     left:50%;
     top:50%;
-    transform: translate(-50%, -50%) translateX(calc(var(--offset) * 1px));
+    transform: translate(-50%, -50%) translateX(calc(var(--offsetX) * 1px)) translateY(calc(var(--offsetY) * 1px));
     color:#09720b;
     font-weight: bold;
     font-size: 2rem;
@@ -43,14 +43,14 @@
 @keyframes floatUp {
     0% {
         opacity: 1;
-        transform:translateX(calc(var(--offset) * 1px)) translateY(0);
+        transform:translateX(calc(var(--offsetX) * 1px)) translateY(calc(var(--offsetY) * 1px));
     }
-    80% {
+    50% {
         opacity: 1;
     }
     100% {
         opacity: 0;
-        transform:translateX(calc(var(--offset) * 1px)) translateY(-60px);
+        transform: translateX(calc(var(--offset) * 1px)) translateY(calc(var(--offsetY) * 1px - 60px));
     }
 }
 
