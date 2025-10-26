@@ -6,11 +6,12 @@
     user-select: none;
     position: fixed;
     left: 50%;
-    top:50%;
+    top: 50%;
+    clip-path: 50%;
+    border-radius: 50%;
     transform: translate(-50%, -50%);
-    display:block;
+    display: block;
     transition: transform 0.3s ease;
-
 }
 
 .MoonButton {
@@ -31,13 +32,16 @@
     left:50%;
     top:50%;
     transform: translate(-50%, -50%) translateX(calc(var(--offsetX) * 1px)) translateY(calc(var(--offsetY) * 1px));
-    color:#09720b;
+    color: transparent;
+    background-image: linear-gradient(#171a38,#302f44);
+    background-clip: text;
     font-weight: bold;
     font-size: 2rem;
     pointer-events: none;
     user-select: none;
     animation: floatUp 1.2s ease-out forward;
     z-index: 100;
+    filter: drop-shadow(0 0 5px #22235a);
 }
 
 @keyframes floatUp {
