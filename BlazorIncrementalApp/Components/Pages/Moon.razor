@@ -18,7 +18,7 @@
 
     @foreach (var effect in effects)
     {
-        <div class="floating-effect" style="--offset:@(effect.Offset);">+@(State.MoonPoint)</div>
+        <div class="floating-effect" style="--offsetX:@(effect.OffsetX); --offsetY:@(effect.OffsetY)">+@(State.MoonPoint)</div>
     }
 }
 else
@@ -34,8 +34,7 @@ else
     private async Task AddPoint()
     {
         var id = counter++;
-        var offset = rand.Next(-4, 5);
-        effects.Add(new FloatingEffect { Id = id, Offset = offset });
+        effects.Add(new FloatingEffect { Id = id, OffsetX = rand.Next(-135,136), OffsetY = rand.Next(-135, 136) });
         StateHasChanged();
 
         await Task.Delay(1200);
@@ -57,6 +56,7 @@ else
     private class FloatingEffect
     {
         public int Id { get; set; }
-        public int Offset { get; set; }
+        public int OffsetX { get; set; }
+        public int OffsetY { get; set; }
     }
 }
