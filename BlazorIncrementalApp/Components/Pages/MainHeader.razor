@@ -11,6 +11,10 @@
     {
         <span>Moon Points: @MState.MoonPoint</span>
     }
+    @if (PageName == "Venus")
+    {
+        <span>Moon Points: @MState.MoonPoint</span>
+    }
     <a href="/">Home</a>
     @if (State.PrestigeUnlocked)
     {
@@ -69,6 +73,10 @@
         if (uri.EndsWith("/Moon"))
         {
             HeaderColor = "#8a8a8a";
+        }
+        if (uri.EndsWith("/Venus"))
+        {
+            HeaderColor = "#cc5f1b";
         }
     }
 }

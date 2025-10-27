@@ -11,6 +11,7 @@
         }
     }
     public bool MoonUnlocked { get; set; }
+    public bool VenusUnlocked { get; set; }
     private void NotifyStateChanged() => OnChange?.Invoke();
 
 

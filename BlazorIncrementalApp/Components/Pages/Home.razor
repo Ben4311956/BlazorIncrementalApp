@@ -89,7 +89,7 @@
 </div>
 
 <div class="BlackMarket">
-    <h1 class="BlackMarketTitle">Black Market</h1>
+    <h1 class="BlackMarketTitle">Black Market @(State.PetsEquipped)</h1>
     <div class="ProductContainer">
         <div class="productBox">
             <p class="BlackMarketSubtitle">Baby Dragon</p>
@@ -427,23 +427,30 @@
     }
     private void Pet1()
     {
+        if (State.PetsEquipped == 3 && !State.Pet1Equipped)
+        {
+            return;
+        }
         if (!State.Pet1 && State.Point >= 5000)
         {
             State.Point -= 5000;
             State.Pet1 = true;
             State.Pet1Equipped = true;
             State.Pet1Boost += 0.2m;
+            State.PetsEquipped++;
         }
 
         if (State.Pet1 && State.Pet1Equipped)
         {
             State.Pet1Equipped = false;
             State.Pet1Boost -= 0.2m;
+            State.PetsEquipped--;
         }
         else if (State.Pet1 && !State.Pet1Equipped)
         {
             State.Pet1Equipped = true;
             State.Pet1Boost += 0.2m;
+            State.PetsEquipped++;
         }
     }
     private string Pet2Class()
@@ -485,23 +492,30 @@
     }
     private void Pet2()
     {
+        if (State.PetsEquipped == 3 && !State.Pet2Equipped)
+        {
+            return;
+        }
         if (!State.Pet2 && State.Point >= 100000)
         {
             State.Point -= 100000;
             State.Pet2 = true;
             State.Pet2Equipped = true;
             State.Pet2Boost += 0.5m;
+            State.PetsEquipped++;
         }
 
         if (State.Pet2 && State.Pet2Equipped)
         {
             State.Pet2Equipped = false;
             State.Pet2Boost -= 0.5m;
+            State.PetsEquipped--;
         }
         else if (State.Pet2 && !State.Pet2Equipped)
         {
             State.Pet2Equipped = true;
             State.Pet2Boost += 0.5m;
+            State.PetsEquipped++;
         }
     }
     private string Pet3Class()
@@ -543,23 +557,30 @@
     }
     private void Pet3()
     {
+        if (State.PetsEquipped == 3 && !State.Pet3Equipped)
+        {
+            return;
+        }
         if (!State.Pet3 && State.Point >= 1000000000)
         {
             State.Point -= 1000000000;
             State.Pet3 = true;
             State.Pet3Equipped = true;
             State.Pet3Boost += 1m;
+            State.PetsEquipped++;
         }
 
         if (State.Pet3 && State.Pet3Equipped)
         {
             State.Pet3Equipped = false;
             State.Pet3Boost -= 1m;
+            State.PetsEquipped--;
         }
         else if (State.Pet3 && !State.Pet3Equipped)
         {
             State.Pet3Equipped = true;
             State.Pet3Boost += 1m;
+            State.PetsEquipped++;
         }
     }
     private string Pet4Class()
@@ -601,23 +622,30 @@
     }
     private void Pet4()
     {
+        if (State.PetsEquipped == 3 && !State.Pet4Equipped)
+        {
+            return;
+        }
         if (!State.Pet4 && State.Point >= 1000000000000000)
         {
             State.Point -= 1000000000000000;
             State.Pet4 = true;
             State.Pet4Equipped = true;
             State.Pet4Boost += 2m;
+            State.PetsEquipped++;
         }
 
         if (State.Pet4 && State.Pet4Equipped)
         {
             State.Pet4Equipped = false;
             State.Pet4Boost -= 2m;
+            State.PetsEquipped--;
         }
         else if (State.Pet4 && !State.Pet4Equipped)
         {
             State.Pet4Equipped = true;
             State.Pet4Boost += 2m;
+            State.PetsEquipped++;
         }
     }
     private string Pet5Class()
@@ -659,6 +687,10 @@
     }
     private void Pet5()
     {
+        if (State.PetsEquipped == 3 && !State.Pet5Equipped)
+        {
+            return;
+        }
         if (!State.Pet5 && State.Point >= 500000000000000000000m)
         {
             State.Point -= 500000000000000000000m;
@@ -666,17 +698,20 @@
             State.Pet4Equipped = true;
             State.Pet4Boost += 4m;
             MState.MoonUnlocked = true;
+            State.PetsEquipped++;
         }
 
         if (State.Pet5 && State.Pet5Equipped)
         {
             State.Pet5Equipped = false;
             State.Pet5Boost -= 4m;
+            State.PetsEquipped--;
         }
         else if (State.Pet5 && !State.Pet5Equipped)
         {
             State.Pet5Equipped = true;
             State.Pet5Boost += 4m;
+            State.PetsEquipped++;
         }
     }
 
