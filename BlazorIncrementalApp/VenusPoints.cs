@@ -1,22 +1,18 @@
-﻿public class MoonPoints
+﻿public class VenusPoints
 {
     public event Action? OnChange;
-    private decimal _moonPoint;
-    public decimal MoonPoint 
-    { get => _moonPoint; 
+    private decimal _crysallite;
+    public decimal Crysallite { get => _crysallite; 
         set
         {
-            _moonPoint = value;
+            _crysallite = value;
             NotifyStateChanged();
         }
+            
     }
-    public bool PlanetsUnlocked { get; set; }
-    public decimal MoonPointMultiplier => PlanetsUnlocked ? (TotalVenusMultiplier) : 0m;
-    public bool MoonUnlocked { get; set; }
-    public bool VenusUnlocked { get; set; }
-    public decimal TotalVenusMultiplier { get; set; } = 0;
-    private void NotifyStateChanged() => OnChange?.Invoke();
 
+
+    private void NotifyStateChanged() => OnChange?.Invoke();
     public static string FormatNumbers(decimal number)
     {
         if (number >= 1e27m)
@@ -40,4 +36,3 @@
         return number.ToString("N0");
     }
 }
-

@@ -1,0 +1,78 @@
+﻿body {
+
+}
+
+button {
+    transition: all 0.5s ease;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+.CrysalliteButton {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20vw;
+    height: 40vh;
+    border-radius: 50%;
+    border: 15px solid #ff6500;
+    background: #3a1f0f;
+    color: #ffb86c;
+    letter-spacing: 1px;
+    font-size: 40px;
+    font-weight: bold;
+    box-shadow: 0 0 15px 5px rgba(255,140,0,0.5);
+}
+
+.CrysalliteButton:hover {
+    animation: pulse 1s ease-in-out infinite;
+    transform: translate(-50%, -50%) scale(1.05);
+}
+
+.CrysalliteButton:active {
+    animation: pulse 0.1s ease-in-out;
+    transform: translate(-50%, -50%) scale(0.95);
+}
+
+@keyframes pulse {
+    0%, 100% {
+        background: #5c320e;
+    }
+    50% {
+        background: #3c2404;
+    }
+}
+
+.CrysalliteDisplay {
+    position: fixed;
+    width: 500px;
+    height: 125px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 100px;
+    background: #1c4ea5;
+    border-radius: 25px;
+    border: 10px solid #ff6500;
+    box-shadow: 0 0 15px 5px rgba(255,140,0,0.5);
+}
+
+.CrysalliteText {
+    position: relative;
+    top: -5px;
+    user-select: none;
+    letter-spacing: 1px;
+    font-size: 50px;
+    background-image: linear-gradient(#ffb86c);
+    background-clip: text;
+    font-weight: bold;
+    color: transparent;
+    text-align: center;
+    filter: drop-shadow(0 0 8px #a0a0a0);
+}

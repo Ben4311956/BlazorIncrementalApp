@@ -1,11 +1,45 @@
-﻿@page "/Venus"
-@inject MoonPoints State
+﻿@page "/Venus"  
+@inject VenusPoints State
+@inject MoonPoints MState  
 @inject Points PState
-@rendermode InteractiveServer
-<MainHeader PageName="Venus"/>
+@rendermode InteractiveServer  
+<MainHeader PageName="Venus"/>  
 
-<h3>Venus</h3>
+<style>  
+    body {  
+        background: linear-gradient(285deg, #b83b09, #cf4e1f, #de8562, #cf4e1f, #d14f1b);
+        background-size: 400% 400%;  
+        background-position: center;  
+        background-repeat: no-repeat;  
+        background-attachment: fixed;  
+        animation: bgslider 10s ease infinite;  
+    }  
+
+    @@keyframes bgslider {  
+        0% {  
+            background-position: 0% 50%;  
+        }  
+
+        50% {  
+            background-position: 100% 50%;  
+        }  
+
+        100% {  
+            background-position: 0% 50%;  
+        }  
+    }  
+</style>
+
+<div class="CrysalliteDisplay">
+    <h1 class="CrysalliteText">Crysallite: @(State.Crysallite)</h1>
+</div>
+<button type="button" class="CrysalliteButton" @onclick="CheckCrysalliteGain">Crysallite Mine</button>
 
 @code {
+    private void CheckCrysalliteGain()
+    {
+        int Multi = 1;
 
+        State.Crysallite += Multi;
+    }
 }

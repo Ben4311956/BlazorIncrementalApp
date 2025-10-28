@@ -20,7 +20,7 @@
 
     @foreach (var effect in effects)
     {
-        <div class="floating-effect" style="--offsetX:@(effect.OffsetX); --offsetY:@(effect.OffsetY)">+@(State.MoonPoint)</div>
+        <div class="floating-effect" style="--offsetX:@(effect.OffsetX); --offsetY:@(effect.OffsetY)">+@(MoonPoints.FormatNumbers(State.MoonPointMultiplier))</div>
     }
 
     <div class="PlanetContainer">
