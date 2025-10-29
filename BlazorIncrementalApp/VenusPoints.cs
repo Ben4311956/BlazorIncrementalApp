@@ -10,7 +10,10 @@
         }
             
     }
-
+    public int MineLevel { get; set; } = 1;
+    public int MineCost { get; set; } = 250;
+    public int AutoDrillBoost { get; set; } = 0;
+    public bool AutoDrillUnlocked { get; set; }
 
     private void NotifyStateChanged() => OnChange?.Invoke();
     public static string FormatNumbers(decimal number)

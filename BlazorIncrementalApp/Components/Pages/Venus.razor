@@ -30,16 +30,217 @@
     }  
 </style>
 
-<div class="CrysalliteDisplay">
-    <h1 class="CrysalliteText">Crysallite: @(State.Crysallite)</h1>
+<div class="MineLevel">
+    <h1 class="CrysalliteText">Mine Level: @(State.MineLevel)</h1>
 </div>
-<button type="button" class="CrysalliteButton" @onclick="CheckCrysalliteGain">Crysallite Mine</button>
+<div class="DrillLevel">
+    <h1 class="DrillBoostText">Auto Drill Boost: @(State.AutoDrillBoost)</h1>
+</div>
+<div class="CrysalliteDisplay">
+    <h1 class="CrysalliteText">Crysallite: @(VenusPoints.FormatNumbers(State.Crysallite))</h1>
+</div>
+<button type="button" class="CrysalliteButton" style="--Bgcolor: @(CrysalliteMineColour()); --pulse1: @(Pulse1()); --pulse2: @(Pulse2())" @onclick="CheckCrysalliteGain">Crysallite Mine</button>
+
+<div class="UpgradePath">
+    <button type="button" class="MLB" @onclick="MineLevel">Mine Level Up: @(MaxedMessage)</button>
+    <div>
+        <button class="ADB" @onclick="AutoDriller">
+            <img class="AutomatedDrill" src="Images/oil-rig.png" alt="Automated Drill" />
+            <span>Automated Drill: The automated Drill produces 1 crysallite per second. Increases by 1 with each upgrade.</span>
+        </button>
+    </div>
+</div>
 
 @code {
+    private CancellationTokenSource? AutoClickerCts;
+    private bool AutoClickerRunning = false;
+    private bool MineLevelMaxed = false;
+    private string MaxedMessage => MineLevelMaxed ? "(maxed)" : $"{VenusPoints.FormatNumbers(State.MineCost)}";
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (State.AutoDrillUnlocked && !AutoClickerRunning)
+        {
+            await AutoDriller();
+        }
+    }
+
     private void CheckCrysalliteGain()
     {
+        int MineLevelMulti = 0;
         int Multi = 1;
+        if (State.MineLevel == 2)
+        {
+            MineLevelMulti = 1;
+        }
+        else if (State.MineLevel == 3)
+        {
+            MineLevelMulti = 2;
+        }
+        else if (State.MineLevel == 4)
+        {
+            MineLevelMulti = 4;
+        }
+        else if (State.MineLevel == 5)
+        {
+            MineLevelMulti = 8;
+        }
+        Multi += MineLevelMulti;
 
         State.Crysallite += Multi;
+    }
+
+    private void MineLevel()
+    {
+        if (State.MineLevel == 1 && State.Crysallite >= State.MineCost)
+        {
+            State.Crysallite -= State.MineCost;
+            State.MineCost = 3000;
+            State.MineLevel++;
+        }
+        else if (State.MineLevel == 2 && State.Crysallite >= State.MineCost)
+        {
+            State.Crysallite -= State.MineCost;
+            State.MineCost = 50000;
+            State.MineLevel++;
+        }
+        else if (State.MineLevel == 3 && State.Crysallite >= State.MineCost)
+        {
+            State.Crysallite -= State.MineCost;
+            State.MineCost = 750000;
+            State.MineLevel++;
+        }
+        else if (State.MineLevel == 4 && State.Crysallite >= State.MineCost)
+        {
+            State.Crysallite -= State.MineCost;
+            State.MineCost = 10000000;
+            State.MineLevel++;
+        }
+        if (State.MineLevel == 5)
+        {
+            MineLevelMaxed = true;
+        }
+    }
+
+    private async Task AutoDriller()
+    {
+        int DrillCost = 25;
+        if (!State.AutoDrillUnlocked && State.Crysallite >= DrillCost)
+        {
+            State.AutoDrillBoost++;
+            State.Crysallite -= DrillCost;
+            State.AutoDrillUnlocked = true;
+        }
+        else if (State.AutoDrillUnlocked && State.Crysallite >= DrillCost)
+        {
+            State.AutoDrillBoost++;
+            State.Crysallite -= DrillCost;
+        }
+        if (State.AutoDrillUnlocked && !AutoClickerRunning)
+        {
+            AutoClickerRunning = true;
+            AutoClickerCts = new CancellationTokenSource();
+
+            _ = RunAutoClickerLoop(AutoClickerCts.Token);
+        }
+    }
+
+    private async Task RunAutoClickerLoop(CancellationToken token)
+    {
+        try
+        {
+            while (!token.IsCancellationRequested)
+            {
+                State.Crysallite += State.AutoDrillBoost;
+                StateHasChanged();
+                await Task.Delay(1000);
+            }
+        }
+        catch (TaskCanceledException)
+        {
+
+        }
+    }
+
+    private string Pulse1()
+    {
+        if (State.MineLevel == 1)
+        {
+            return "#5c320e";
+        }
+        else if (State.MineLevel == 2)
+        {
+            return "#967a0c";
+        }
+        else if (State.MineLevel == 3)
+        {
+            return "#2f7810";
+        }
+        else if (State.MineLevel == 4)
+        {
+            return "#102c70";
+        }
+        else if (State.MineLevel == 5)
+        {
+            return "#d11120";
+        }
+        else
+        {
+            return "#000";
+        }
+    }
+    private string Pulse2()
+    {
+        if (State.MineLevel == 1)
+        {
+            return "#3c2404";
+        }
+        else if (State.MineLevel == 2)
+        {
+            return "#59490b";
+        }
+        else if (State.MineLevel == 3)
+        {
+            return "#21540b";
+        }
+        else if (State.MineLevel == 4)
+        {
+            return "#0c1e4a";
+        }
+        else if (State.MineLevel == 5)
+        {
+            return "#9e0511";
+        }
+        else
+        {
+            return "#000";
+        }
+    }
+    private string CrysalliteMineColour()
+    {
+        if (State.MineLevel == 1)
+        {
+            return "#3a1f0f";
+        }
+        else if (State.MineLevel == 2)
+        {
+            return "#786724";
+        }
+        else if (State.MineLevel == 3)
+        {
+            return "#214213";
+        }
+        else if (State.MineLevel == 4)
+        {
+            return "#141d33";
+        }
+        else if (State.MineLevel == 5)
+        {
+            return "#7a0b14";
+        }
+        else
+        {
+            return "#000";
+        }
     }
 }

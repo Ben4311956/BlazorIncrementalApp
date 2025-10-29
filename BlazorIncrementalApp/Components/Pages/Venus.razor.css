@@ -23,7 +23,7 @@ button:active {
     height: 40vh;
     border-radius: 50%;
     border: 15px solid #ff6500;
-    background: #3a1f0f;
+    background: var(--Bgcolor);
     color: #ffb86c;
     letter-spacing: 1px;
     font-size: 40px;
@@ -43,14 +43,15 @@ button:active {
 
 @keyframes pulse {
     0%, 100% {
-        background: #5c320e;
+        background: var(--pulse1);
     }
     50% {
-        background: #3c2404;
+        background: var(--pulse2);
     }
 }
 
 .CrysalliteDisplay {
+    user-select: none;
     position: fixed;
     width: 500px;
     height: 125px;
@@ -64,6 +65,7 @@ button:active {
 }
 
 .CrysalliteText {
+    user-select: none;
     position: relative;
     top: -5px;
     user-select: none;
@@ -74,5 +76,93 @@ button:active {
     font-weight: bold;
     color: transparent;
     text-align: center;
+    filter: drop-shadow(0 0 8px #a0a0a0);
+}
+
+.MineLevel {
+    position: fixed;
+    width: 350px;
+    height: 125px;
+    left: 25px;
+    top: 100px;
+    background: #1c4ea5;
+    border-radius: 25px;
+    border: 10px solid #ff6500;
+    box-shadow: 0 0 15px 5px rgba(255,140,0,0.5);
+}
+
+.UpgradePath {
+    display: flex;
+    position: fixed;
+    min-width: 100vw;
+    height: 200px;
+    bottom: 0;
+    left: 0;
+    background: #443B2C;
+    border-top: 5px solid #1e3b17;
+}
+
+.MLB {
+    user-select: none;
+    margin: 20px;
+    padding: 10px;
+    height: 80%;
+    background: #3d2916;
+    color: #ffb86c;
+    border: 10px solid #510c6d;
+    border-radius: 10px;
+    letter-spacing: 1px;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.ADB {
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: #3d2916;
+    border-radius: 10px;
+    border: 10px solid #510c6d;
+    margin: 20px;
+    padding: 10px;
+    height: 80%;
+    width: 300px;
+    color: #ffb86c;
+    letter-spacing: 1px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.AutomatedDrill {
+    user-select: none;
+    height: 100px;
+    width: 100px;
+}
+
+.DrillLevel {
+    user-select: none;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 350px;
+    height: 125px;
+    left: 25px;
+    top: 275px;
+    background: #1c4ea5;
+    border-radius: 25px;
+    border: 10px solid #ff6500;
+    box-shadow: 0 0 15px 5px rgba(255,140,0,0.5);
+}
+
+.DrillBoostText {
+    user-select: none;
+    background-image: linear-gradient(#ffb86c);
+    background-clip: text;
+    font-weight: bold;
+    font-size: 40px;
+    color: transparent;
     filter: drop-shadow(0 0 8px #a0a0a0);
 }
