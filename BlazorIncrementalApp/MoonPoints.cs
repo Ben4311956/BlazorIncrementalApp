@@ -14,7 +14,7 @@
     public decimal MoonPointMultiplier => PlanetsUnlocked ? (TotalVenusMultiplier) : 0m;
     public bool MoonUnlocked { get; set; }
     public bool VenusUnlocked { get; set; }
-    public decimal TotalVenusMultiplier { get; set; } = 0;
+    public decimal TotalVenusMultiplier { get; set; }
     private void NotifyStateChanged() => OnChange?.Invoke();
 
     public static string FormatNumbers(decimal number)

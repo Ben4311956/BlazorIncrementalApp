@@ -1,21 +1,78 @@
 ﻿public class VenusPoints
 {
-    public event Action? OnChange;
+    public event Func<Task>? OnChange;
     private decimal _crysallite;
     public decimal Crysallite { get => _crysallite; 
         set
         {
             _crysallite = value;
-            NotifyStateChanged();
+            _ = NotifyStateChanged();
         }
             
     }
+
+    public async Task NotifyStateChanged()
+    {
+        if (OnChange is not null)
+            await OnChange.Invoke();
+    }
+
+    private CancellationTokenSource? _autoClickerCts;
+    private bool _autoClickerRunning = false;
+
+    public void StartAutoClicker()
+    {
+        if (_autoClickerRunning || !AutoDrillUnlocked) return;
+
+        _autoClickerRunning = true;
+        _autoClickerCts = new CancellationTokenSource();
+
+        _ = RunAutoClickerLoop(_autoClickerCts.Token);
+    }
+
+    private async Task RunAutoClickerLoop(CancellationToken token)
+    {
+        try
+        {
+            while (!token.IsCancellationRequested)
+            {
+                var production = AutoDrillBoost;
+                if (LaserMinerUnlocked)
+                {
+                    production *= LaserMinerBoost;
+                }
+                Crysallite += production;
+                await Task.Delay(1000, token);
+            }
+        }
+        catch (TaskCanceledException)
+        {
+
+        }
+        finally
+        {
+            _autoClickerRunning = false;
+        }
+    }
+
+    public void StopAutoClicker()
+    {
+        _autoClickerCts?.Cancel();
+        _autoClickerCts?.Dispose();
+        _autoClickerCts = null;
+        _autoClickerRunning = false;
+    }
+
     public int MineLevel { get; set; } = 1;
     public int MineCost { get; set; } = 250;
     public int AutoDrillBoost { get; set; } = 0;
     public bool AutoDrillUnlocked { get; set; }
+    public bool LaserMinerUnlocked { get; set; } = false;
+    public int LaserMinerBoost { get; set; } = 3;
+    public int TrueAutoDrillBoost => LaserMinerBoost * AutoDrillBoost;
+    public bool QuantumExtractorUnlocked { get; set; }
+    public decimal Crysalline { get; set; }
 
-    private void NotifyStateChanged() => OnChange?.Invoke();
     public static string FormatNumbers(decimal number)
     {
         if (number >= 1e27m)

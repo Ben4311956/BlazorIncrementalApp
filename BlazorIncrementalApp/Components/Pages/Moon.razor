@@ -1,6 +1,7 @@
 ﻿@page "/Moon"
 @inject MoonPoints State
 @inject Points PState
+@inject VenusPoints VState
 @inject NavigationManager Nav
 @rendermode InteractiveServer
 @implements IDisposable
@@ -47,6 +48,7 @@ else
 
     private async Task AddPoint()
     {
+        State.TotalVenusMultiplier = VState.Crysalline;
         var id = counter++;
         effects.Add(new FloatingEffect { Id = id, OffsetX = rand.Next(-135,136), OffsetY = rand.Next(-135, 136) });
         StateHasChanged();

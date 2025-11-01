@@ -34,7 +34,7 @@
     <h1 class="CrysalliteText">Mine Level: @(State.MineLevel)</h1>
 </div>
 <div class="DrillLevel">
-    <h1 class="DrillBoostText">Auto Drill Boost: @(State.AutoDrillBoost)</h1>
+    <h1 class="DrillBoostText">Auto Drill Boost: @(State.LaserMinerUnlocked ? State.TrueAutoDrillBoost : State.AutoDrillBoost)</h1>
 </div>
 <div class="CrysalliteDisplay">
     <h1 class="CrysalliteText">Crysallite: @(VenusPoints.FormatNumbers(State.Crysallite))</h1>
@@ -46,22 +46,81 @@
     <div>
         <button class="ADB" @onclick="AutoDriller">
             <img class="AutomatedDrill" src="Images/oil-rig.png" alt="Automated Drill" />
-            <span>Automated Drill: The automated Drill produces 1 crysallite per second. Increases by 1 with each upgrade.</span>
+            <span>Automated Drill: The automated Drill produces 1 crysallite per second. Increases by 1 with each upgrade. Costs 25 Crysallite</span>
         </button>
     </div>
+    @if (State.Crysallite >= 10000 || State.LaserMinerUnlocked)
+    {
+        <div>
+            <button class="LM" @onclick="LaserMiner">
+                <img class="LaserMiner" src="Images/laser.png" alt="Laser Miner" />
+                @if (!State.LaserMinerUnlocked)
+                {
+                    <span>Laser Miner: A powerful enhancement that increases Crysallite Gain by 3x. One Time Purchase of 10,000 Crysallite</span>
+                }
+                else
+                {
+                    <span>Laser Miner: A powerful enhancement that increases Crysallite Gain by 3x. (Unlocked)</span>
+                }
+            </button>
+        </div>
+    }
+</div>
+<div>
+    <button class="QuantumExtractor" @onclick="QuantumCheck">
+        <img class="NanoImage" src="Images/nano.png" alt="Quantum Extractor" />
+        <span class="QuantumText">Quantum Extractor: Allows for the production of Crysalline, which powers the Moon. Costs 1 Million Crysallite. Level 5 Mine Required.</span>
+    </button>
 </div>
 
+@if (State.QuantumExtractorUnlocked)
+{
+    <div class="CrysallineContainer">
+        <div class="CrysallineCount">
+            <h1 class="CrysallineText">Crysalline: @(State.Crysalline)</h1>
+        </div>
+        <button class="cb" @onclick="CrysallineButton1">0.1% pure Crysalline (1K Crysallite): 1 Crysalline</button>
+        <button class="cb" @onclick="CrysallineButton2">Super Low Concentration Crysalline (10K Crysallite): 2 Crysalline</button>
+        <button class="cb" @onclick="CrysallineButton3">Low Concentration Crysalline (25K Crysallite): 4 Crysalline</button>
+        <button class="cb" @onclick="CrysallineButton4">Mild Crysalline (100K Crysallite): 6 Crysalline</button>
+        <button class="cb" @onclick="CrysallineButton5">High Concentration Crysalline (250K Crysallite): 15 Crysalline</button>
+        <button class="cb" @onclick="CrysallineButton6">99.1% pure Crysalline (1M Crysallite): 50 Crysalline</button>
+        <button class="cb" @onclick="CrysallineButton7">100% pure Crysalline (10M Crysallite) 600 Crysalline</button>
+    </div>
+}
+
 @code {
-    private CancellationTokenSource? AutoClickerCts;
-    private bool AutoClickerRunning = false;
+    private Func<Task>? _stateChangedHandler;
     private bool MineLevelMaxed = false;
     private string MaxedMessage => MineLevelMaxed ? "(maxed)" : $"{VenusPoints.FormatNumbers(State.MineCost)}";
+    private Timer? _autoUpdateTimer;
+    private bool _disposed = false;
 
-    protected override async Task OnInitializedAsync()
+
+    protected override void OnInitialized()
     {
-        if (State.AutoDrillUnlocked && !AutoClickerRunning)
+        _stateChangedHandler = () => InvokeAsync(StateHasChanged);
+        State.OnChange += _stateChangedHandler;
+
+        if (State.AutoDrillUnlocked)
         {
-            await AutoDriller();
+            State.StartAutoClicker();
+        }
+
+        _autoUpdateTimer = new Timer(_ =>
+        {
+            if (!_disposed)
+            {
+                InvokeAsync(StateHasChanged);
+            }
+        }, null, 1000, 1000);
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender && State.AutoDrillUnlocked)
+        {
+            State.StartAutoClicker();
         }
     }
 
@@ -86,6 +145,11 @@
             MineLevelMulti = 8;
         }
         Multi += MineLevelMulti;
+
+        if (State.LaserMinerUnlocked == true)
+        {
+            Multi *= State.LaserMinerBoost;
+        }
 
         State.Crysallite += Multi;
     }
@@ -122,7 +186,7 @@
         }
     }
 
-    private async Task AutoDriller()
+    private void AutoDriller()
     {
         int DrillCost = 25;
         if (!State.AutoDrillUnlocked && State.Crysallite >= DrillCost)
@@ -130,35 +194,12 @@
             State.AutoDrillBoost++;
             State.Crysallite -= DrillCost;
             State.AutoDrillUnlocked = true;
+            State.StartAutoClicker();
         }
         else if (State.AutoDrillUnlocked && State.Crysallite >= DrillCost)
         {
             State.AutoDrillBoost++;
             State.Crysallite -= DrillCost;
-        }
-        if (State.AutoDrillUnlocked && !AutoClickerRunning)
-        {
-            AutoClickerRunning = true;
-            AutoClickerCts = new CancellationTokenSource();
-
-            _ = RunAutoClickerLoop(AutoClickerCts.Token);
-        }
-    }
-
-    private async Task RunAutoClickerLoop(CancellationToken token)
-    {
-        try
-        {
-            while (!token.IsCancellationRequested)
-            {
-                State.Crysallite += State.AutoDrillBoost;
-                StateHasChanged();
-                await Task.Delay(1000);
-            }
-        }
-        catch (TaskCanceledException)
-        {
-
         }
     }
 
@@ -242,5 +283,95 @@
         {
             return "#000";
         }
+    }
+    private void LaserMiner()
+    {
+        if (State.Crysallite >= 10000 && !State.LaserMinerUnlocked)
+        {
+            State.Crysallite -= 10000;
+            State.LaserMinerUnlocked = true;
+        }
+    }
+    private void QuantumCheck()
+    {
+        if (!State.QuantumExtractorUnlocked && State.Crysallite >= 1000000 && State.MineLevel == 5)
+        {
+            State.Crysallite -= 1000000;
+            State.QuantumExtractorUnlocked = true;
+        }
+    }
+    private void CrysallineButton1()
+    {
+        if (State.Crysallite >= 1000)
+        {
+            State.Crysalline += 1;
+            State.Crysallite -= 1000;
+        }
+    }
+    private void CrysallineButton2()
+    {
+        if (State.Crysallite >= 10000)
+        {
+            State.Crysalline += 2;
+            State.Crysallite -= 10000;
+        }
+    }
+    private void CrysallineButton3()
+    {
+        if (State.Crysallite >= 25000)
+        {
+            State.Crysalline += 4;
+            State.Crysallite -= 25000;
+        }
+    }
+    private void CrysallineButton4()
+    {
+        if (State.Crysallite >= 100000)
+        {
+            State.Crysalline += 6;
+            State.Crysallite -= 100000;
+        }
+    }
+    private void CrysallineButton5()
+    {
+        if (State.Crysallite >= 250000)
+        {
+            State.Crysalline += 15;
+            State.Crysallite -= 250000;
+        }
+    }
+    private void CrysallineButton6()
+    {
+        if (State.Crysallite >= 1000000)
+        {
+            State.Crysalline += 50;
+            State.Crysallite -= 1000000;
+        }
+    }
+    private void CrysallineButton7()
+    {
+        if (State.Crysallite >= 10000000)
+        {
+            State.Crysalline += 600;
+            State.Crysallite -= 10000000;
+        }
+    }
+    public void Dispose()
+    {
+        if (!_disposed)
+        {
+            _disposed = true;
+
+            if (_stateChangedHandler is not null)
+            {
+                State.OnChange -= _stateChangedHandler;
+            }
+            _autoUpdateTimer?.Dispose();
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        Dispose();
     }
 }

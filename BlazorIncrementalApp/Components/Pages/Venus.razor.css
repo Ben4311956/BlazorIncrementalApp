@@ -15,6 +15,7 @@ button:active {
 }
 
 .CrysalliteButton {
+    user-select: none;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -94,6 +95,9 @@ button:active {
 .UpgradePath {
     display: flex;
     position: fixed;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-wrap: nowrap;
     min-width: 100vw;
     height: 200px;
     bottom: 0;
@@ -165,4 +169,123 @@ button:active {
     font-size: 40px;
     color: transparent;
     filter: drop-shadow(0 0 8px #a0a0a0);
+}
+
+.LM {
+    user-select: none;
+    display: flex;
+    align-items: center;
+    background: #752197;
+    margin: 20px;
+    border: 10px solid #510c6d;
+    height: 80%;
+    width: 400px;
+    padding-left: 5px;
+    border-radius: 10px;
+    color: #ffb86c;
+    letter-spacing: 1px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.LaserMiner {
+    user-select: none;
+    height:100px;
+    width:150px;
+}
+
+.QuantumExtractor {
+    user-select: none;
+    display:flex;
+    align-items: center;
+    position:absolute;
+    bottom: 20px;
+    right: 25px;
+    height: 160px;
+    width: 300px;
+    border-radius: 10px;
+    border: 10px solid #a212cc;
+    background: linear-gradient(90deg, #66118e,#970c87,#e522c3);
+}
+
+.QuantumText {
+    color: transparent;
+    background-image: linear-gradient(#22abd8);
+    background-clip: text;
+    letter-spacing: 1px;
+    font-size: 14px;
+    font-weight: bold;
+    filter: drop-shadow(0px 0px 4px #302fb5);
+}
+
+.NanoImage {
+    width: 100px;
+    height: 100px;
+}
+
+.CrysallineContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    user-select: none;
+    position: fixed;
+    overflow-x: hidden;
+    overflow-y: auto;
+    top: 100px;
+    right: 25px;
+    width: 500px;
+    max-height: 600px;
+    background: linear-gradient(#ef6122,#db6416,#db790f,#dca306,#e2d708);
+    border: 10px solid #ff6500;
+    box-shadow: 0 0 15px 5px rgba(255,140,0,0.5);
+}
+
+.CrysallineContainer::-webkit-scrollbar {
+    background: #ea8100;
+    border-radius: 5px;
+}
+
+.CrysallineContainer::-webkit-scrollbar-thumb {
+    background: #9a4600;
+    border-radius: 5px;
+}
+
+.CrysallineCount {
+    user-select: none;
+    position: relative;
+    top: 10px;
+    height: 50px;
+    width: 300px;
+    border-radius: 20px;
+    border: 10px solid #b41dbf;
+    box-shadow: 0 0 15px 5px rgba(255,140,0,0.5);
+    background: #1c4ea5;
+}
+
+.CrysallineText {
+    user-select: none;
+    position: relative;
+    top: -10px;
+    user-select: none;
+    letter-spacing: 1px;
+    font-size: 25px;
+    background-image: linear-gradient(#f62dff);
+    background-clip: text;
+    font-weight: bold;
+    color: transparent;
+    text-align: center;
+    filter: drop-shadow(0 0 8px #d117c2);
+}
+
+.cb {
+    height: 125px;
+    width:400px;
+    border: 8px solid #4315b6;
+    background: conic-gradient(#15b59c,#1332c4,#b213c4,#15b59c);
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 20px;
+    flex-shrink: 0;
 }
