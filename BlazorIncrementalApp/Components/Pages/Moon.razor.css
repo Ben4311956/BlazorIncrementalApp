@@ -157,3 +157,21 @@ button:active {
     font-size: 1.5rem;
     pointer-events: none;
 }
+
+.tut {
+    position: fixed;
+    top: 100px;
+    left: 25px;
+    height: 40vh;
+    width: 17vw;
+    border: 10px solid #aea8a8;
+    background: #626060;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-size: 26px;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: 1px;
+    text-align: center;
+    border-radius: 25px;
+}
