@@ -9,6 +9,7 @@ builder.Services.AddSingleton<Points>();
 builder.Services.AddSingleton<Buttons>();
 builder.Services.AddSingleton<MoonPoints>();
 builder.Services.AddSingleton<VenusPoints>();
+builder.Services.AddSingleton<MindoorOres>();
 
 var app = builder.Build();
 

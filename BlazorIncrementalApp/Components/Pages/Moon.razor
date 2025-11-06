@@ -94,5 +94,16 @@ else
             Nav.NavigateTo("/Venus");
         }
     }
-
+    private void MoveToMindoor()
+    {
+        if(!State.MindoorUnlocked && PState.Prestige >= 10000)
+        {
+            State.MindoorUnlocked = true;
+            Nav.NavigateTo("/Mindoor");
+        }
+        else if (State.MindoorUnlocked)
+        {
+            Nav.NavigateTo("/Mindoor");
+        }
+    }
 }

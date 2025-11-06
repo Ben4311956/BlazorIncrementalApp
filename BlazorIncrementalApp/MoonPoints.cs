@@ -11,9 +11,11 @@
         }
     }
     public bool PlanetsUnlocked { get; set; }
-    public decimal MoonPointMultiplier => PlanetsUnlocked ? (TotalVenusMultiplier) : 0m;
+    public decimal MoonPointMultiplier => PlanetsUnlocked ? (TotalVenusMultiplier * TotalMindoorMultiplier) : 0m;
     public bool MoonUnlocked { get; set; }
     public bool VenusUnlocked { get; set; }
+    public bool MindoorUnlocked { get; set; }
+    public decimal TotalMindoorMultiplier { get; set; }
     public decimal TotalVenusMultiplier { get; set; }
     private void NotifyStateChanged() => OnChange?.Invoke();
 

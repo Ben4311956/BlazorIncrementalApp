@@ -21,7 +21,8 @@
         <a href="/Moon">Moon</a>
         <span>Prestiges: @State.Prestige</span>
     }
-    <a href="/Venus">venus</a>
+    <a href="/Mindoor">Mindoor</a>
+    <a href="/Moon">Moon</a>
 </nav>
 
 @code {
@@ -78,6 +79,10 @@
         if (uri.EndsWith("/Venus"))
         {
             HeaderColor = "#cc5f1b";
+        }
+        if (uri.EndsWith("/Mindoor"))
+        {
+            HeaderColor = "#3c2f4a";
         }
     }
 }
