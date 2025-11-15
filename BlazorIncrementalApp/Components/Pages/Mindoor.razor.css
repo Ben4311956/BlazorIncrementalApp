@@ -1,0 +1,63 @@
+﻿body {
+}
+
+.Smelter {
+    position: fixed;
+    left: 50%;
+    top:60%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 125px;
+    border-radius: 25px;
+    border: 15px solid #4d2e16;
+    background: #464038;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.Furnace_bottom {
+    position: fixed;
+    width: 800px;
+    height: 100px;
+    left:50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    background-color:#282626;
+}
+
+.Furnace_body {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom:100px;
+    width:625px;
+    height:600px;
+    border-top-left-radius: 100px;
+    border-top-right-radius: 100px;
+    border: 20px solid #151313;
+    background:grey;
+}
+
+.Furnace_name {
+    position: relative;
+    font-size: 100px;
+    text-align: center;
+    font-weight: bold;
+    color:#312f2e;
+}
+
+.Furnace_chimney {
+    position: relative;
+    top: -100px;
+    left: 60%;
+    transform: translateX(-50%);
+    width: 75px;
+    height: 500px;
+    background: #171616;
+    border-left: 5px solid #151313;
+    border-right: 5px solid #151313;
+    z-index: -1;
+    overflow: hidden;
+}

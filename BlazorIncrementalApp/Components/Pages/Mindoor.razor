@@ -2,6 +2,58 @@
 @rendermode InteractiveServer
 <MainHeader PageName="Mindoor"/>
 
-@code {
+<style>
+    body {
+        background: #604187;
+    }
+</style>
 
+<div class="Furnace">
+    <div class="Furnace_body">
+        <h1 class="Furnace_name">THE FORGE</h1>
+    </div>
+    <button class="Smelter" @onclick="Smelt">
+        <div style=@($"height:110%; width: {ProgressBar}%; background: linear-gradient(90deg, #9e5c1e, #d17015); transition: width 0.25s; position:relative; left:-10px; top:-5px;")></div>
+    </button>
+    <div class="Furnace_bottom"></div>
+    <div class="Furnace_chimney">
+        <div style=@($"position:absolute; left:0; bottom:{MetalBar}px; height: 35px; width: 75px; background:{AlloyColour()}; transition: bottom 0.25s;")></div>
+    </div>
+</div>
+
+@code {
+    int ProgressBar = 0;
+    int MetalBar = 0;
+    bool IsSmelting = false;
+
+    private async Task Smelt()
+    {
+        if (IsSmelting) return;
+        IsSmelting = true;
+
+        while (ProgressBar < 110)
+        {
+            ProgressBar += 5;
+            StateHasChanged();
+            await Task.Delay(80);
+        }
+
+        ProgressBar = 0;
+        StateHasChanged();
+
+        while (MetalBar < 500)
+        {
+            MetalBar += 50;
+            StateHasChanged();
+            await Task.Delay(80);
+        }
+
+        MetalBar = 0;
+        StateHasChanged();
+        IsSmelting = false;
+    }
+    private string AlloyColour()
+    {
+        return "#ad8611";
+    }
 }
