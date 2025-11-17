@@ -33,7 +33,7 @@
     transform: translateX(-50%);
     bottom:100px;
     width:625px;
-    height:600px;
+    height:60vh;
     border-top-left-radius: 100px;
     border-top-right-radius: 100px;
     border: 20px solid #151313;
@@ -51,7 +51,7 @@
 .Furnace_chimney {
     position: relative;
     top: -100px;
-    left: 60%;
+    left: 55%;
     transform: translateX(-50%);
     width: 75px;
     height: 500px;
