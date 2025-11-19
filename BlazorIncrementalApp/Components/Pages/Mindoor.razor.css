@@ -79,4 +79,14 @@
     left:50%;
     transform: translateX(-50%);
     bottom: 10px;
+    width: 100px;
+    height: 35px;
+    border-radius: 5px;
+    border: 2px solid #c9c501;
+    background: #7e7878;
+    text-align: center;
+    font-weight:bold;
+    color:#fff;
+    font-size: 24px;
+
 }
