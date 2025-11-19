@@ -1,5 +1,6 @@
 ﻿@page "/Mindoor"
 @rendermode InteractiveServer
+@inject MindoorOres State
 <MainHeader PageName="Mindoor"/>
 
 <style>
@@ -19,6 +20,8 @@
     <div class="Furnace_chimney">
         <div style=@($"position:absolute; left:0; bottom:{MetalBar}px; height: 35px; width: 75px; background:{AlloyColour()}; transition: bottom 0.25s;")></div>
     </div>
+    <p class="OreTitle">@(CurrentOre())</p>
+    <div class="OreDisplay">@(State.IronOre)</div>
 </div>
 
 @code {
@@ -39,6 +42,11 @@
         }
 
         ProgressBar = 0;
+        State.IronOreUnlocked = true;
+        if (State.IronOreUnlocked)
+        {
+            State.IronOre += 1;
+        }
         StateHasChanged();
 
         while (MetalBar < 500)
@@ -55,5 +63,13 @@
     private string AlloyColour()
     {
         return "#ad8611";
+    }
+    private string CurrentOre()
+    {
+        if (State.IronOreUnlocked)
+        {
+            return "Iron Ore";
+        }
+        return "Iron Ore";
     }
 }

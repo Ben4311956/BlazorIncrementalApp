@@ -98,7 +98,7 @@ button:active {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    border: 20px solid green;
+    border: none;
     height: 800px;
     width: 850px;
 }
