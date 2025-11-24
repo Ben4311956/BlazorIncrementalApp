@@ -1,4 +1,6 @@
 using BlazorIncrementalApp.Components;
+using BlazorIncrementalApp.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,8 @@ builder.Services.AddSingleton<Buttons>();
 builder.Services.AddSingleton<MoonPoints>();
 builder.Services.AddSingleton<VenusPoints>();
 builder.Services.AddSingleton<MindoorOres>();
+
+builder.Services.AddDbContext<OrderDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("OrderDb")));
 
 var app = builder.Build();
 
