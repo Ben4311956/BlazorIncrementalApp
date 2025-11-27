@@ -1,5 +1,9 @@
-﻿public class MoonPoints
+﻿using System.ComponentModel.DataAnnotations;
+
+public class MoonPoints
 {
+    [Key]
+    public int MoonPointsID { get; set; }
     public event Action? OnChange;
     private decimal _moonPoint;
     public decimal MoonPoint 

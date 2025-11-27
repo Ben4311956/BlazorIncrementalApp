@@ -1,5 +1,8 @@
-﻿public class Points
+﻿using System.ComponentModel.DataAnnotations;
+public class Points
 {
+    [Key]
+    public int PointsID { get; set; }
     public event Action? OnChange;
 
     private decimal _point;

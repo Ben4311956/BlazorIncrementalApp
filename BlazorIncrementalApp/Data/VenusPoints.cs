@@ -1,5 +1,9 @@
-﻿public class VenusPoints
+﻿using System.ComponentModel.DataAnnotations;
+
+public class VenusPoints
 {
+    [Key]
+    public int VenusPointsID { get; set; }
     public event Func<Task>? OnChange;
     private decimal _crysallite;
     public decimal Crysallite { get => _crysallite; 

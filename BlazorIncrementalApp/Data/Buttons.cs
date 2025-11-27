@@ -1,5 +1,10 @@
-﻿public class Buttons
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+
+public class Buttons
 {
+    [Key]
+    public int ButtonsID { get; set; }
     public event Action? OnChange;
 
     private bool _midPointBtnUnlocked;
