@@ -11,6 +11,7 @@ namespace BlazorIncrementalApp.Data
         public DbSet<MoonPoints> MoonPoints { get; set; }
         public DbSet<VenusPoints> VenusPoints { get; set; }
         public DbSet<MindoorOres> MindoorOres { get; set; }
+        public DbSet<PersonalDetails> PersonalDetails { get; set; }
 
     }
 }

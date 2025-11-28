@@ -3,6 +3,10 @@
 @inject Points State
 @inject Buttons BState
 @inject MoonPoints MState
+@inject PersonalDetails Pd
+@inject NavigationManager Nav
+@inject BlazorIncrementalApp.Data.OrderDbContext Db
+@using Microsoft.EntityFrameworkCore;
 
 <style>
     body {
@@ -132,6 +136,21 @@
     private string ButtonClass3 => BState.AutoClickerUnlocked ? "AutoClickerUnlocked" : "AutoClickerLocked";
     private bool _disposed;
 
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (Pd.PlayerID is not null)
+            {
+
+            }
+            else
+            {
+                Nav.NavigateTo("/Login");
+            }
+        }
+    }
+
     protected override void OnInitialized()
     {
         BState.OnChange += OnStateChanged;
@@ -175,9 +194,9 @@
             State.CriticalGainChance += 0.01;
 
         }
-        else if (State.Point >= criticalGainValue && BState.CriticalGainUnlocked)  
+        else if (State.Point >= criticalGainValue && BState.CriticalGainUnlocked)
         {  
-            State.Point -= criticalGainValue;  
+            State.Point -= criticalGainValue;
             State.CriticalGainAmount++;
             State.CriticalBoost += 0.01;
             State.CriticalGainChance += 0.01;
@@ -329,11 +348,11 @@
         {
             State.Upgrade3Unlocked = true;
         }
-        if(State.Point >= 1000000)
+        if (State.Point >= 1000000)
         {
             State.Upgrade4Unlocked = true;
         }
-        if(State.Point >= 1000000000000)
+        if (State.Point >= 1000000000000)
         {
             State.Upgrade5Unlocked = true;
         }

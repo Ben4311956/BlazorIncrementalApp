@@ -1,0 +1,53 @@
+﻿@inject NavigationManager Nav
+@page "/Login"
+
+<style>
+    body {
+        background: #fff;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+</style>
+
+<div class="LoginScreen">
+    <h1 class="LoginTitle">Login or Sign Up</h1>
+    <input type="text" @bind="username" class="Username" placeholder="Username">
+    <input type="text" @bind="email" class="Email" placeholder="Email">
+    <input type="text" @bind="password" class="Password" placeholder="Password">
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <p class="ErrorMessage">@errorMessage</p>
+    }
+
+    <button @onclick="Submit" class="SubmitButton">Submit</button>
+</div>
+
+@code {
+    private string username;
+    private string email;
+    private string password;
+    private string errorMessage;
+
+    private void Submit()
+    {
+        if (!string.IsNullOrEmpty(username))
+        {
+            errorMessage = "You must enter a username";
+        }
+        else if (!string.IsNullOrEmpty(email))
+        {
+            errorMessage = "You must enter an email";
+        }
+        else if (!string.IsNullOrEmpty(password))
+        {
+            errorMessage = "You must enter a password";
+        }
+        else
+        {
+            Nav.NavigateTo("/");
+        }
+    }
+}
