@@ -14,7 +14,7 @@ builder.Services.AddSingleton<VenusPoints>();
 builder.Services.AddSingleton<MindoorOres>();
 builder.Services.AddSingleton<PersonalDetails>();
 
-builder.Services.AddDbContext<OrderDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("OrderDb")));
+builder.Services.AddDbContextFactory<OrderDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("OrderDb")));
 
 var app = builder.Build();
 
