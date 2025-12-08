@@ -32,34 +32,39 @@
     private string email;
     private string password;
     private string errorMessage;
+    private static readonly Random _rand = new Random();
+    private int rnd = _rand.Next(10000, 99999);
 
-    private void Submit()
+    private async Task Submit()
     {
         if (string.IsNullOrEmpty(username))
         {
             errorMessage = "You must enter a username";
+            return;
         }
-        else if (string.IsNullOrEmpty(email))
+        if (string.IsNullOrEmpty(email))
         {
             errorMessage = "You must enter an email";
+            return;
         }
-        else if (string.IsNullOrEmpty(password))
+        if (string.IsNullOrEmpty(password))
         {
             errorMessage = "You must enter a password";
+            return;
         }
-        else
+
+        using var db = await DbFactory.CreateDbContextAsync();
+
+        var details = new PersonalDetails
         {
-            var details = new PersonalDetails
-            {
-                PlayerID = "12312",
-                Username = username,
-                Email = email,
-                Password = password
-            };
-            using var db = DbFactory.CreateDbContext();
-            db.PersonalDetails.Add(details);
-            db.SaveChanges();
-            Nav.NavigateTo("/");
-        }
+            //PlayerID = playerId,
+            Username = username,
+            Email = email,
+            Password = password
+        };
+
+        db.PersonalDetails.Add(details);
+        await db.SaveChangesAsync();
+        Nav.NavigateTo("/");
     }
 }

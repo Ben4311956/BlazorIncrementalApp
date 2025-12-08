@@ -23,7 +23,7 @@
 <PageTitle>Home</PageTitle>  
 
 <div class="StarterBtns">
-    <button class="sb" type="button" @onclick="PointCounter">Lower Point Gain Button</button>
+    <button class="sb" type="button" @onclick="PointCounter">@(Pd.PlayerID)</button>
     @if (BState.MidPointBtnUnlocked)
     {
         <button class="sb2" type="button" @onclick="PointCounter2">Middle Point Gain Button</button>
@@ -140,7 +140,7 @@
     {
         if (firstRender)
         {
-            if (Pd.PlayerID is not null)
+            if (Pd.PlayerID != 0)
             {
 
             }

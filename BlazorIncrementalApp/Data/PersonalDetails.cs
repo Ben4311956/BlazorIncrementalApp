@@ -5,7 +5,7 @@
 public class PersonalDetails
 {
     [Key]
-    public string PlayerID { get; set; }
+    public int PlayerID { get; set; }
     public string Email { get; set; }
 
     public string Username { get; set; }
