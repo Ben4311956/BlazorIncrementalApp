@@ -13,6 +13,7 @@ builder.Services.AddSingleton<MoonPoints>();
 builder.Services.AddSingleton<VenusPoints>();
 builder.Services.AddSingleton<MindoorOres>();
 builder.Services.AddSingleton<PersonalDetails>();
+builder.Services.AddSingleton<UsePersonalDetails>();
 
 builder.Services.AddDbContextFactory<OrderDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("OrderDb")));
 

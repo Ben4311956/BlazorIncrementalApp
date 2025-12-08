@@ -5,6 +5,7 @@
 @inject MoonPoints MState
 @inject PersonalDetails Pd
 @inject NavigationManager Nav
+@inject BlazorIncrementalApp.Data.UsePersonalDetails UserData
 @inject BlazorIncrementalApp.Data.OrderDbContext Db
 @using Microsoft.EntityFrameworkCore;
 
@@ -23,7 +24,7 @@
 <PageTitle>Home</PageTitle>  
 
 <div class="StarterBtns">
-    <button class="sb" type="button" @onclick="PointCounter">@(Pd.PlayerID)</button>
+    <button class="sb" type="button" @onclick="PointCounter">Lower Point Gain Button</button>
     @if (BState.MidPointBtnUnlocked)
     {
         <button class="sb2" type="button" @onclick="PointCounter2">Middle Point Gain Button</button>
@@ -140,7 +141,7 @@
     {
         if (firstRender)
         {
-            if (Pd.PlayerID != 0)
+            if (UserData.PlayerID != 0)
             {
 
             }
